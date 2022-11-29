@@ -1,0 +1,33 @@
+body {
+  background-image: url(./Images/Battleship\ -\ Wallpaper\ front\ page\ 2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: black;
+}
+
+h1 {
+  color: white;
+  font-size: 60px;
+  position: fixed;
+  top: 3%;
+  left: 3%;
+  margin: 0%;
+}
+
+#button {
+  background-color: red;
+  color: white;
+  width: 35px;
+  height: 35px;
+  position: fixed;
+  top: 3%;
+  right: 3%;
+}
+
+#gridTitle {
+  /* display: flex; */
+  color: white;
+  font-size: 30px;
+
+}
+

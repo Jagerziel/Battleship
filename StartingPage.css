@@ -1,0 +1,25 @@
+body {
+  background-image: url(./Images/Battleship\ -\ Wallpaper\ front\ page\ 1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: black;
+}
+
+h1 {
+  display: flex;
+  justify-content: right;
+  font-size: 120px;
+  position: relative;
+  padding: 0px 40px 0px 20px;
+}
+
+#button {
+  background-color: #27178d;
+  position: relative;
+  float: right;
+  font-size: 27px;
+  color: white;
+  width: 300px;
+  height: 100px;
+  right: 140px;
+}

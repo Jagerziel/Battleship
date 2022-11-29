@@ -1,0 +1,29 @@
+body {
+  background-image: url(./Images/Battleship\ -\ Wallpaper\ front\ page\ 3.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: black;
+}
+
+h1 {
+  color: white;
+  font-size: 60px;
+  position: fixed;
+  top: 0%;
+  left: 3%;
+}
+
+#button {
+  background-color: red;
+  color: white;
+  font-size: large;
+  width: 200px;
+  height: 70px;
+}
+
+.button {
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+
+}
