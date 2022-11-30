@@ -10,32 +10,46 @@ const compSquares = compBoard.children
 let playerAttributes = []
 let compAttributes = []
 
+console.log(compAttributes)
+
+
 //Assign attributes 
-let attributes = {
-  noShips: true, //Ocean
-  shipID: '', //Type of Ship
-  shipLength: 0, //Length of Ship
-  shipSunk: false, //Ship Present or Blank Tile Default Value
-  shipHit: false, //Ship Hit
-  shipHitCount: 0, //Ship Hit Count to check against length
-  shipMiss: false, //Ship Miss count for shot total, log miss in square
-  gridTurn: false, //
-  showShip: false //Show Ship on Board
-}
+let attributes = [
+  true, //noShips (open ocean)
+  '', //Ship ID (type of ship)
+  0, //Length of Ship
+  false, //Ship Sunk (Present or Blank Tile Default Value)
+  false, //Ship Hit
+  0, //Ship Hit Count to check against length
+  false, //Ship Miss count for shot total, log miss in square
+  false, //
+  false //Show Ship on Board
+]
 
 //Insert objects into arrays.  Both player and comp done in one array (though this can be broken out into two)
 for (let i = 0; i < playerSquares.length; i++) {
   playerAttributes.push(attributes)
-  compAttributes.push(attributes)
+}
+
+for (let i = 0; i < compSquares.length; i++) {
+  compAttributes.push(
+    [
+      true, //noShips (open ocean)
+      '', //Ship ID (type of ship)
+      0, //Length of Ship
+      false, //Ship Sunk (Present or Blank Tile Default Value)
+      false, //Ship Hit
+      0, //Ship Hit Count to check against length
+      false, //Ship Miss count for shot total, log miss in square
+      false, //
+      false //Show Ship on Board
+    ]
+  )
 }
 
 // console.log(playerAttributes) //Atribute Testing
 // console.log(playerAttributes[3].attributes.shipHit) //Pull specific attribute Testing
-// abc = 50
-// for (let i = 0; i < 3; i++) {
-  console.log(`CHECKING ATTRIBUTE ${compAttributes[29].noShips}`) 
-//   abc--
-// }
+// console.log(`CHECKING ATTRIBUTE ${compAttributes[29][0]}`) 
 
 //Ship Placement (Step 1) - Random Placement
 
@@ -72,9 +86,7 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
       let index = Math.floor(Math.random() * 100)
       if (index % 10 - Object.values(fleet)[i] + 1 >= 0) {
         shipPlacement = true;
-        console.log(`Start Horizontal Placement at index ${index}`)
         let indexCheck = index
-        console.log(`index is ${index} and indexCheck is ${indexCheck}`)
         let takenSpaces = 0
         for (let k = Object.values(fleet)[i]; k > 0; k--) {
           for (let l = 0; l < placedCompShips.length; l++) {
@@ -203,10 +215,27 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
 
 //ASSIGN ATTRIBUTES
 // for (let i = 0; i < placedCompShips.length; i++) {
-//   compAttributes[placedCompShips[i]].shipID = Object.keys(fleet)[i]
-//   compAttributes[placedCompShips[i]].shipLength = Object.values(fleet)[i]
-//   compAttributes[placedCompShips[i]].noShips = false
+//   compAttributes[placedCompShips[i]][1] = Object.keys(fleet)[i]
+//   compAttributes[placedCompShips[i]][2] = Object.values(fleet)[i]
+//   compAttributes[placedCompShips[i]][0] = false
 // }
+
+compAttributes[0].splice(0, 1, false)
+console.log(compAttributes[0][0])
+console.log(compAttributes[1][0])
+// console.log(compAttributes[2][0])
+// console.log(compAttributes[3][0])
+// console.log(compAttributes[4][0])
+// console.log(compAttributes[5][0])
+// console.log(compAttributes[6][0])
+// console.log(compAttributes[7][0])
+// console.log(compAttributes[8][0])
+// console.log(compAttributes[9][0])
+// console.log(compAttributes[10][0])
+
+
+
+
 
 
 // compAttributes[index].shipID = Object.keys(fleet)[i]
