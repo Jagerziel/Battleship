@@ -32,6 +32,61 @@ for (let i = 0; i < playerSquares.length; i++) {
 console.log(playerAttributes) //Atribute Testing
 console.log(playerAttributes[3].attributes.shipHit) //Pull specific attribute Testing
 
+//Ship Placement (Step 1) - Random Placement
+
+//Assign variables
+let pos = "";
+let fleet = {
+  airCraftCarrier: 5,
+  destroyer: 4,
+  cruiserOne: 3,
+  cruiserTwo: 3,
+  frigate: 2
+}
+
+console.log(Object.keys(fleet).length)
+
+for (let i = 0; i < Object.keys(fleet).length; i++) {
+  if (Math.random() > 0.5) {
+    pos = "Horizontal"
+  } else {
+    pos = "Vertical"
+  }
+  console.log(pos)
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
