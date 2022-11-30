@@ -55,6 +55,22 @@ let fleet = {
   cruiserTwo: 3,
   frigate: 2
 }
+let fleetCompIndexes = {
+  airCraftCarrier: [],
+  destroyer: [],
+  cruiserOne: [],
+  cruiserTwo: [],
+  frigate: []
+}
+
+let fleetPlayerIndexes = {
+  airCraftCarrier: [],
+  destroyer: [],
+  cruiserOne: [],
+  cruiserTwo: [],
+  frigate: []
+}
+
 
 //Computer Ship Placement
 for (let i = 0; i < Object.keys(fleet).length; i++) {
@@ -91,6 +107,9 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
             compAttributes[index].noShip = false
             compAttributes[index].shipID = Object.keys(fleet)[i]
             compAttributes[index].shipLength = Object.values(fleet)[i]
+            
+            //Push Fleet Indexes
+            Object.values(fleetCompIndexes)[i].push(index)
 
             //Iterate Index
             index -= 1
@@ -124,7 +143,10 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
             compAttributes[index].noShip = false
             compAttributes[index].shipID = Object.keys(fleet)[i]
             compAttributes[index].shipLength = Object.values(fleet)[i]
-            
+                        
+            //Push Fleet Indexes
+            Object.values(fleetCompIndexes)[i].push(index)
+
             //Iterate Index
             index += 10
           }
@@ -156,7 +178,6 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
         for (let k = Object.values(fleet)[i]; k > 0; k--) {
           if (playerAttributes[indexCheck].noShip === true) {
             freeSpaces++
-            console.log(`X Axis Free Space ${freeSpaces}`)
           }
           indexCheck -= 1
         } 
@@ -172,7 +193,10 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
             playerAttributes[index].noShip = false
             playerAttributes[index].shipID = Object.keys(fleet)[i]
             playerAttributes[index].shipLength = Object.values(fleet)[i]
-            
+                        
+            //Push Fleet Indexes
+            Object.values(fleetPlayerIndexes)[i].push(index)
+
             //Iterate Index
             index -= 1
           }
@@ -191,7 +215,6 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
         for (let k = Object.values(fleet)[i]; k > 0; k--) {
           if (playerAttributes[indexCheck].noShip === true) {
             freeSpaces++
-            console.log(`Y Axis Free Space ${freeSpaces}`)
           }
           indexCheck += 10
         } 
@@ -207,7 +230,10 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
             playerAttributes[index].noShip = false
             playerAttributes[index].shipID = Object.keys(fleet)[i]
             playerAttributes[index].shipLength = Object.values(fleet)[i]
-            
+                        
+            //Push Fleet Indexes
+            Object.values(fleetPlayerIndexes)[i].push(index)
+
             //Iterate Index
             index += 10
           }
@@ -244,18 +270,26 @@ if (Math.random() > 0.5) {
 
 
 
+
+
+
+
+
+
+
 //TESTING
-console.log(playerAttributes[0].shipID)
-console.log(playerAttributes[1].shipID)
-console.log(playerAttributes[2].shipID)
-console.log(playerAttributes[3].shipID)
-console.log(playerAttributes[4].shipID)
-console.log(playerAttributes[5].shipID)
-console.log(playerAttributes[6].shipID)
-console.log(playerAttributes[7].shipID)
-console.log(playerAttributes[8].shipID)
-console.log(playerAttributes[9].shipID)
-console.log(playerAttributes[10].shipID)
+// console.log(playerAttributes[0].shipID)
+// console.log(playerAttributes[1].shipID)
+// console.log(playerAttributes[2].shipID)
+// console.log(playerAttributes[3].shipID)
+// console.log(playerAttributes[4].shipID)
+// console.log(playerAttributes[5].shipID)
+// console.log(playerAttributes[6].shipID)
+// console.log(playerAttributes[7].shipID)
+// console.log(playerAttributes[8].shipID)
+// console.log(playerAttributes[9].shipID)
+// console.log(fleetCompIndexes)
+// console.log(fleetPlayerIndexes)
 
 
 
