@@ -8,6 +8,7 @@ body {
 h1 {
   display: flex;
   justify-content: right;
+  color: white;
   font-size: 120px;
   position: relative;
   padding: 0px 40px 0px 20px;
