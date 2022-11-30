@@ -12,7 +12,7 @@ let compAttributes = []
 
 //Assign attributes 
 let attributes = {
-  noShip: true, //Ocean
+  noShips: true, //Ocean
   shipID: '', //Type of Ship
   shipLength: 0, //Length of Ship
   shipSunk: false, //Ship Present or Blank Tile Default Value
@@ -33,7 +33,7 @@ for (let i = 0; i < playerSquares.length; i++) {
 // console.log(playerAttributes[3].attributes.shipHit) //Pull specific attribute Testing
 // abc = 50
 // for (let i = 0; i < 3; i++) {
-  console.log(`CHECKING ATTRIBUTE ${compAttributes[29].noShip}`) 
+  console.log(`CHECKING ATTRIBUTE ${compAttributes[29].noShips}`) 
 //   abc--
 // }
 
@@ -52,6 +52,10 @@ let fleet = {
 // console.log(Object.keys(fleet).length)
 // console.log(Object.entries(fleet))
 
+//Ship Placement Array
+let placedCompShips = []
+let placedPlayerShips = []
+
 //Computer Ship Placement
 for (let i = 0; i < Object.keys(fleet).length; i++) {
   //Randomize ship: vertical or horizontal
@@ -69,61 +73,177 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
       if (index % 10 - Object.values(fleet)[i] + 1 >= 0) {
         shipPlacement = true;
         console.log(`Start Horizontal Placement at index ${index}`)
-        
-
-
         let indexCheck = index
         console.log(`index is ${index} and indexCheck is ${indexCheck}`)
-        let freeSpaces = 0
+        let takenSpaces = 0
         for (let k = Object.values(fleet)[i]; k > 0; k--) {
-          console.log(`noShip is equal to ${compAttributes[indexCheck].noShip}`)
-          if (compAttributes[indexCheck].noShip === true) {
-            freeSpaces++  
-          }
-          console.log(`IndexCheck is ${indexCheck} and free spaces is ${freeSpaces}`)
+          for (let l = 0; l < placedCompShips.length; l++) {
+            if (indexCheck === placedCompShips[l]){
+              takenSpaces++
+            }
+          } 
           indexCheck -= 1
         } 
-        if (Object.values(fleet)[i] === freeSpaces) {
-          console.log("SHIP PLACED")
+        if (takenSpaces === 0) {
           for (let j = Object.values(fleet)[i]; j > 0; j--) {
-            compAttributes[index].shipID = Object.keys(fleet)[i]
-            compAttributes[index].shipLength = Object.values(fleet)[i]
-            // compAttributes[index].noShip = false
             compSquares[index].innerHTML = `X${i}`
-            console.log(`X placed at index ${index}`)
-            console.log(`Properties changed to ${compAttributes[index]}`)
+            placedCompShips.push(index)
             index -= 1
           }
         } else {
-          console.log("SHIP NOT PLACED")
+          shipPlacement = false
         }
-        freeSpaces = 0;
+        takenSpaces = 0
       }
     }
-    console.log(compAttributes)
+
   } else {
     let shipPlacement = false
     while (shipPlacement === false) {
       let index = Math.floor(Math.random() * 100)
       if (index + (Object.values(fleet)[i] * 10) - 10 < 100) {
         shipPlacement = true;
-        console.log(`Start Vertical Placement at index ${index}`)
-        for (let j = 0; j < Object.values(fleet)[i]; j++) {
-          compAttributes[index].shipID = Object.keys(fleet)[i]
-          compAttributes[index].shipLength = Object.values(fleet)[i]
-          // compAttributes[index].noShip = false
-          compSquares[index].innerHTML = `Y${i}`
-          console.log(`Y placed at index ${index}`)
-          console.log(`Properties changed to ${compAttributes[index]}`)
-          index += 10
+        let indexCheck = index
+        let takenSpaces = 0
+        for (let k = Object.values(fleet)[i]; k > 0; k--) {
+          for (let l = 0; l < placedCompShips.length; l++) {
+            if (indexCheck === placedCompShips[l]){
+              takenSpaces++
+            }
+          } 
+          indexCheck += 10
+        } 
+        if (takenSpaces === 0) {
+          for (let j = 0; j < Object.values(fleet)[i]; j++) {
+            compSquares[index].innerHTML = `Y${i}`
+            placedCompShips.push(index)
+            index += 10
+          }
+        } else {
+          shipPlacement = false
         }
+        takenSpaces = 0
       }
     }
   }
 }
 
 
-// console.log(`FINAL CHECK ${compAttributes[50].attributes.noShip}`)
+//Player Ship Placement
+for (let i = 0; i < Object.keys(fleet).length; i++) {
+  //Randomize ship: vertical or horizontal
+  if (Math.random() > 0.5) {
+    pos = "Horizontal"
+  } else {
+    pos = "Vertical"
+  }
+
+  //Ship Placement 
+  if (pos === "Horizontal") {
+    let shipPlacement = false
+    while (shipPlacement === false) {
+      let index = Math.floor(Math.random() * 100)
+      if (index % 10 - Object.values(fleet)[i] + 1 >= 0) {
+        shipPlacement = true;
+        let indexCheck = index
+        let takenSpaces = 0
+        for (let k = Object.values(fleet)[i]; k > 0; k--) {
+          for (let l = 0; l < placedPlayerShips.length; l++) {
+            if (indexCheck === placedPlayerShips[l]){
+              takenSpaces++
+            }
+          } 
+          indexCheck -= 1
+        } 
+        if (takenSpaces === 0) {
+          for (let j = Object.values(fleet)[i]; j > 0; j--) {
+            playerSquares[index].innerHTML = `X${i}`
+            playerSquares[index].style.background = '#FF0000'
+            placedPlayerShips.push(index)
+            index -= 1
+          }
+        } else {
+          shipPlacement = false
+        }
+        takenSpaces = 0
+      }
+    }
+
+  } else {
+    let shipPlacement = false
+    while (shipPlacement === false) {
+      let index = Math.floor(Math.random() * 100)
+      if (index + (Object.values(fleet)[i] * 10) - 10 < 100) {
+        shipPlacement = true;
+        let indexCheck = index
+        let takenSpaces = 0
+        for (let k = Object.values(fleet)[i]; k > 0; k--) {
+          for (let l = 0; l < placedPlayerShips.length; l++) {
+            if (indexCheck === placedPlayerShips[l]){
+              takenSpaces++
+            }
+          } 
+          indexCheck += 10
+        } 
+        if (takenSpaces === 0) {
+          for (let j = 0; j < Object.values(fleet)[i]; j++) {
+            playerSquares[index].innerHTML = `Y${i}`
+            playerSquares[index].style.background = '#FF0000'
+            placedPlayerShips.push(index)
+            index += 10
+          }
+        } else {
+          shipPlacement = false
+        }
+        takenSpaces = 0
+      }
+    }
+  }
+}
+
+//ASSIGN ATTRIBUTES
+// for (let i = 0; i < placedCompShips.length; i++) {
+//   compAttributes[placedCompShips[i]].shipID = Object.keys(fleet)[i]
+//   compAttributes[placedCompShips[i]].shipLength = Object.values(fleet)[i]
+//   compAttributes[placedCompShips[i]].noShips = false
+// }
+
+
+// compAttributes[index].shipID = Object.keys(fleet)[i]
+// compAttributes[index].shipLength = Object.values(fleet)[i]
+// compAttributes[index].noShips = false
+
+//Beginning the Game (Step 2) - To Battle!
+
+//Initializing Variables
+let playerTurn = false
+let playerShots = 0
+let playerHits = 0
+let playerSunkCount = 0
+let computerSunkCount = 0
+let compHit = false
+let compIndexArray = []
+let compLastIndex;
+let endGame = false
+
+//Choosing who goes first
+if (Math.random() > 0.5) {
+  playerTurn = true
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
