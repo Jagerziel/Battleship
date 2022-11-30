@@ -10,48 +10,41 @@ const compSquares = compBoard.children
 let playerAttributes = []
 let compAttributes = []
 
-console.log(compAttributes)
-
-
-//Assign attributes 
-let attributes = [
-  true, //noShips (open ocean)
-  '', //Ship ID (type of ship)
-  0, //Length of Ship
-  false, //Ship Sunk (Present or Blank Tile Default Value)
-  false, //Ship Hit
-  0, //Ship Hit Count to check against length
-  false, //Ship Miss count for shot total, log miss in square
-  false, //
-  false //Show Ship on Board
-]
-
-//Insert objects into arrays.  Both player and comp done in one array (though this can be broken out into two)
+//Insert objects into arrays
 for (let i = 0; i < playerSquares.length; i++) {
-  playerAttributes.push(attributes)
+  playerAttributes.push({
+      shipID: '', //Type of Ship
+      shipLength: 0, //Length of Ship
+      shipSunk: false, //Ship Present or Blank Tile Default Value
+      shipHit: false, //Ship Hit
+      shipHitCount: 0, //Ship Hit Count to check against length
+      shipMiss: false, //Ship Miss count for shot total, log miss in square
+      noShip: true, //Ocean
+      gridTurn: false, //
+      showShip: false //Show Ship on Board
+    }
+  )
 }
 
 for (let i = 0; i < compSquares.length; i++) {
   compAttributes.push(
-    [
-      true, //noShips (open ocean)
-      '', //Ship ID (type of ship)
-      0, //Length of Ship
-      false, //Ship Sunk (Present or Blank Tile Default Value)
-      false, //Ship Hit
-      0, //Ship Hit Count to check against length
-      false, //Ship Miss count for shot total, log miss in square
-      false, //
-      false //Show Ship on Board
-    ]
+    {
+      shipID: '', //Type of Ship
+      shipLength: 0, //Length of Ship
+      shipSunk: false, //Ship Present or Blank Tile Default Value
+      shipHit: false, //Ship Hit
+      shipHitCount: 0, //Ship Hit Count to check against length
+      shipMiss: false, //Ship Miss count for shot total, log miss in square
+      noShip: true, //Ocean
+      gridTurn: false, //
+      showShip: false //Show Ship on Board
+    }
   )
 }
 
-// console.log(playerAttributes) //Atribute Testing
-// console.log(playerAttributes[3].attributes.shipHit) //Pull specific attribute Testing
-// console.log(`CHECKING ATTRIBUTE ${compAttributes[29][0]}`) 
-
-//Ship Placement (Step 1) - Random Placement
+/*
+***Ship Placement (Step 1) - Random Placement***
+*/
 
 //Assign variables
 let pos = "";
@@ -62,13 +55,6 @@ let fleet = {
   cruiserTwo: 3,
   frigate: 2
 }
-
-// console.log(Object.keys(fleet).length)
-// console.log(Object.entries(fleet))
-
-//Ship Placement Array
-let placedCompShips = []
-let placedPlayerShips = []
 
 //Computer Ship Placement
 for (let i = 0; i < Object.keys(fleet).length; i++) {
@@ -84,28 +70,32 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
     let shipPlacement = false
     while (shipPlacement === false) {
       let index = Math.floor(Math.random() * 100)
-      if (index % 10 - Object.values(fleet)[i] + 1 >= 0) {
-        shipPlacement = true;
+      if (index % 10 - Object.values(fleet)[i] + 1 >= 0) {    
+        //Loop to ensure there will be no overlapping ships
         let indexCheck = index
-        let takenSpaces = 0
+        let freeSpaces = 0
         for (let k = Object.values(fleet)[i]; k > 0; k--) {
-          for (let l = 0; l < placedCompShips.length; l++) {
-            if (indexCheck === placedCompShips[l]){
-              takenSpaces++
-            }
-          } 
+          if (compAttributes[indexCheck].noShip === true) {
+            freeSpaces++
+          }
           indexCheck -= 1
         } 
-        if (takenSpaces === 0) {
+
+        //Place Ship if freeSpaces is equal to the Ship's length
+        if (freeSpaces === Object.values(fleet)[i]) {
+          shipPlacement = true;
           for (let j = Object.values(fleet)[i]; j > 0; j--) {
             compSquares[index].innerHTML = `X${i}`
-            placedCompShips.push(index)
+
+            //Update Attributes
+            compAttributes[index].noShip = false
+            compAttributes[index].shipID = Object.keys(fleet)[i]
+            compAttributes[index].shipLength = Object.values(fleet)[i]
+
+            //Iterate Index
             index -= 1
           }
-        } else {
-          shipPlacement = false
-        }
-        takenSpaces = 0
+        } 
       }
     }
 
@@ -114,27 +104,31 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
     while (shipPlacement === false) {
       let index = Math.floor(Math.random() * 100)
       if (index + (Object.values(fleet)[i] * 10) - 10 < 100) {
-        shipPlacement = true;
+        //Loop to ensure there will be no overlapping ships
         let indexCheck = index
-        let takenSpaces = 0
+        let freeSpaces = 0
         for (let k = Object.values(fleet)[i]; k > 0; k--) {
-          for (let l = 0; l < placedCompShips.length; l++) {
-            if (indexCheck === placedCompShips[l]){
-              takenSpaces++
-            }
-          } 
+          if (compAttributes[indexCheck].noShip === true) {
+            freeSpaces++
+          }
           indexCheck += 10
         } 
-        if (takenSpaces === 0) {
+
+        //Place Ship if freeSpaces is equal to the Ship's length
+        if (freeSpaces === Object.values(fleet)[i]) {
+          shipPlacement = true;
           for (let j = 0; j < Object.values(fleet)[i]; j++) {
             compSquares[index].innerHTML = `Y${i}`
-            placedCompShips.push(index)
+            
+            //Update Attributes
+            compAttributes[index].noShip = false
+            compAttributes[index].shipID = Object.keys(fleet)[i]
+            compAttributes[index].shipLength = Object.values(fleet)[i]
+            
+            //Iterate Index
             index += 10
           }
-        } else {
-          shipPlacement = false
         }
-        takenSpaces = 0
       }
     }
   }
@@ -156,28 +150,33 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
     while (shipPlacement === false) {
       let index = Math.floor(Math.random() * 100)
       if (index % 10 - Object.values(fleet)[i] + 1 >= 0) {
-        shipPlacement = true;
+        //Loop to ensure there will be no overlapping ships
         let indexCheck = index
-        let takenSpaces = 0
+        let freeSpaces = 0
         for (let k = Object.values(fleet)[i]; k > 0; k--) {
-          for (let l = 0; l < placedPlayerShips.length; l++) {
-            if (indexCheck === placedPlayerShips[l]){
-              takenSpaces++
-            }
-          } 
+          if (playerAttributes[indexCheck].noShip === true) {
+            freeSpaces++
+            console.log(`X Axis Free Space ${freeSpaces}`)
+          }
           indexCheck -= 1
         } 
-        if (takenSpaces === 0) {
+
+        //Place Ship if freeSpaces is equal to the Ship's length
+        if (freeSpaces === Object.values(fleet)[i]) {
+          shipPlacement = true;
           for (let j = Object.values(fleet)[i]; j > 0; j--) {
             playerSquares[index].innerHTML = `X${i}`
             playerSquares[index].style.background = '#FF0000'
-            placedPlayerShips.push(index)
+            
+            //Update Attributes
+            playerAttributes[index].noShip = false
+            playerAttributes[index].shipID = Object.keys(fleet)[i]
+            playerAttributes[index].shipLength = Object.values(fleet)[i]
+            
+            //Iterate Index
             index -= 1
           }
-        } else {
-          shipPlacement = false
-        }
-        takenSpaces = 0
+        } 
       }
     }
 
@@ -186,63 +185,41 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
     while (shipPlacement === false) {
       let index = Math.floor(Math.random() * 100)
       if (index + (Object.values(fleet)[i] * 10) - 10 < 100) {
-        shipPlacement = true;
+        //Loop to ensure there will be no overlapping ships
         let indexCheck = index
-        let takenSpaces = 0
+        let freeSpaces = 0
         for (let k = Object.values(fleet)[i]; k > 0; k--) {
-          for (let l = 0; l < placedPlayerShips.length; l++) {
-            if (indexCheck === placedPlayerShips[l]){
-              takenSpaces++
-            }
-          } 
+          if (playerAttributes[indexCheck].noShip === true) {
+            freeSpaces++
+            console.log(`Y Axis Free Space ${freeSpaces}`)
+          }
           indexCheck += 10
         } 
-        if (takenSpaces === 0) {
+
+        //Place Ship if freeSpaces is equal to the Ship's length
+        if (freeSpaces === Object.values(fleet)[i]) {
+          shipPlacement = true;
           for (let j = 0; j < Object.values(fleet)[i]; j++) {
             playerSquares[index].innerHTML = `Y${i}`
             playerSquares[index].style.background = '#FF0000'
-            placedPlayerShips.push(index)
+            
+            //Update Attributes
+            playerAttributes[index].noShip = false
+            playerAttributes[index].shipID = Object.keys(fleet)[i]
+            playerAttributes[index].shipLength = Object.values(fleet)[i]
+            
+            //Iterate Index
             index += 10
           }
-        } else {
-          shipPlacement = false
-        }
-        takenSpaces = 0
+        } 
       }
     }
   }
 }
 
-//ASSIGN ATTRIBUTES
-// for (let i = 0; i < placedCompShips.length; i++) {
-//   compAttributes[placedCompShips[i]][1] = Object.keys(fleet)[i]
-//   compAttributes[placedCompShips[i]][2] = Object.values(fleet)[i]
-//   compAttributes[placedCompShips[i]][0] = false
-// }
-
-compAttributes[0].splice(0, 1, false)
-console.log(compAttributes[0][0])
-console.log(compAttributes[1][0])
-// console.log(compAttributes[2][0])
-// console.log(compAttributes[3][0])
-// console.log(compAttributes[4][0])
-// console.log(compAttributes[5][0])
-// console.log(compAttributes[6][0])
-// console.log(compAttributes[7][0])
-// console.log(compAttributes[8][0])
-// console.log(compAttributes[9][0])
-// console.log(compAttributes[10][0])
-
-
-
-
-
-
-// compAttributes[index].shipID = Object.keys(fleet)[i]
-// compAttributes[index].shipLength = Object.values(fleet)[i]
-// compAttributes[index].noShips = false
-
-//Beginning the Game (Step 2) - To Battle!
+/*
+***Beginning the Game (Step 2) - To Battle!***
+*/
 
 //Initializing Variables
 let playerTurn = false
@@ -267,8 +244,18 @@ if (Math.random() > 0.5) {
 
 
 
-
-
+//TESTING
+console.log(playerAttributes[0].shipID)
+console.log(playerAttributes[1].shipID)
+console.log(playerAttributes[2].shipID)
+console.log(playerAttributes[3].shipID)
+console.log(playerAttributes[4].shipID)
+console.log(playerAttributes[5].shipID)
+console.log(playerAttributes[6].shipID)
+console.log(playerAttributes[7].shipID)
+console.log(playerAttributes[8].shipID)
+console.log(playerAttributes[9].shipID)
+console.log(playerAttributes[10].shipID)
 
 
 
