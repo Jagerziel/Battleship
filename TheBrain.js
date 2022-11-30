@@ -10,7 +10,7 @@ const compSquares = compBoard.children
 let playerAttributes = []
 let compAttributes = []
 
-
+//Assign attributes 
 let attributes = {
   shipID: '',
   shipLength: 0,
@@ -29,9 +29,23 @@ for (let i = 0; i < playerSquares.length; i++) {
   compAttributes.push({attributes})
 }
 
-console.log(playerAttributes)
+console.log(playerAttributes) //Atribute Testing
+console.log(playerAttributes[3].attributes.shipHit) //Pull specific attribute Testing
 
 
 
+
+
+
+
+
+//ALL EVENT LISTENERS
+
+//Event Listener for Player Clicks on Enemy Board
+for (let i = 0; i < playerSquares.length; i++) {
+  compSquares[i].addEventListener('click', () => {
+      console.log(`Clicked square ${i}`);
+    })
+}
 
 
