@@ -336,15 +336,25 @@ const battleAttacks = (idx) => {
         
         // let compLastIndex = index
         
-        console.log(`Array Length: ${compIndexArray.length} Roll: ${roll} Index: ${indexOfArray}`)
+        console.log(`Array Length: ${compIndexArray.length} Roll: ${compRollIterator} Index: ${indexOfArray}`)
 
+
+
+
+
+
+
+
+        
         if (playerAttributes[indexOfArray].noShip === true) {
           playerAttributes[indexOfArray].shipMiss = true
           compHit = false
           playerSquares[indexOfArray].style.background = 'RGB(0, 0, 0, 0)'
         } else {
           playerAttributes[indexOfArray].shipHit = true
+
           console.log(`${turnCountTest}) Computer hit index ${indexOfArray}, properties: ${playerAttributes[indexOfArray].shipID}`)
+          //Applies a hit count to all indexes of hit ship
           for (let i = 0; i < playerAttributes[indexOfArray].shipLength; i++) {
             let shipType = playerAttributes[indexOfArray].shipID
             playerAttributes[fleetPlayerIndexes[shipType][i]].shipHitCount++
@@ -358,7 +368,7 @@ const battleAttacks = (idx) => {
           }
 
           //Change Background and Update Stats
-          playerSquares[idx].style.background = 'RGB(255, 0, 0, 1)'
+          playerSquares[indexOfArray].style.background = 'RGB(255, 0, 0, 1)'
           
           //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!! 
           if (playerSunkCount === 5) {
