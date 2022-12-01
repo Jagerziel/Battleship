@@ -187,7 +187,7 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
           shipPlacement = true;
           for (let j = Object.values(fleet)[i]; j > 0; j--) {
             playerSquares[index].innerHTML = `X${i}`
-            playerSquares[index].style.background = '#FF0000'
+            playerSquares[index].style.background = 'RGB(70, 70, 70, 1)'
             
             //Update Attributes
             playerAttributes[index].noShip = false
@@ -224,7 +224,7 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
           shipPlacement = true;
           for (let j = 0; j < Object.values(fleet)[i]; j++) {
             playerSquares[index].innerHTML = `Y${i}`
-            playerSquares[index].style.background = '#FF0000'
+            playerSquares[index].style.background = 'RGB(70, 70, 70, 1)'
             
             //Update Attributes
             playerAttributes[index].noShip = false
@@ -266,8 +266,6 @@ let compIndexArray = []
 for (let i = 0; i < 100; i++) {
   compIndexArray.push(i)
 }
-
-
 
 //Choosing who goes first
 if (Math.random() > 0.5) {
@@ -347,11 +345,19 @@ const compAttacks = () => {
     if (playerSunkCount === 5) {
       endGame = true
     }
+
+  //Change Background and Update Stats
+  playerSquares[idx].style.background = 'RGB(255, 0, 0, 1)'
+
+
     //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!!
     compIndexArray.splice(index, 1)
   }
+
   //End Turn
   playerTurn = true
+
+  
 }
 
 
@@ -404,7 +410,7 @@ const compAttacks = () => {
 for (let i = 0; i < playerSquares.length; i++) {
   compSquares[i].addEventListener('click', () => {
       playerAttacks(i);
-    }, {once: true})
+  }, {once: true})
 }
 
 exit.addEventListener('click', () => {
