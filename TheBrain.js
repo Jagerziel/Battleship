@@ -1,31 +1,16 @@
 
 //Assign Player and Comp to variables and create nodelist for each
-const playerBoard = document.querySelector('.playerBoard')
-const playerSquares = playerBoard.children
-
 const compBoard = document.querySelector('.compBoard')
 const compSquares = compBoard.children
 
+const playerBoard = document.querySelector('.playerBoard')
+const playerSquares = playerBoard.children
+
 //Assign Objects to run concurrent with squares, which allows for selectable attributes
-let playerAttributes = []
 let compAttributes = []
+let playerAttributes = []
 
 //Insert objects into arrays
-for (let i = 0; i < playerSquares.length; i++) {
-  playerAttributes.push({
-      shipID: '', //Type of Ship
-      shipLength: 0, //Length of Ship
-      shipSunk: false, //Ship Present or Blank Tile Default Value
-      shipHit: false, //Ship Hit
-      shipHitCount: 0, //Ship Hit Count to check against length
-      shipMiss: false, //Ship Miss count for shot total, log miss in square
-      noShip: true, //Ocean
-      gridTurn: false, //
-      showShip: false //Show Ship on Board
-    }
-  )
-}
-
 for (let i = 0; i < compSquares.length; i++) {
   compAttributes.push(
     {
@@ -36,13 +21,28 @@ for (let i = 0; i < compSquares.length; i++) {
       shipHitCount: 0, //Ship Hit Count to check against length
       shipMiss: false, //Ship Miss count for shot total, log miss in square
       noShip: true, //Ocean
-      gridTurn: false, //
+      gridTurn: true, //
       showShip: false //Show Ship on Board
     }
-  )
-}
+    )
+  }
+  
+  for (let i = 0; i < playerSquares.length; i++) {
+    playerAttributes.push({
+        shipID: '', //Type of Ship
+        shipLength: 0, //Length of Ship
+        shipSunk: false, //Ship Present or Blank Tile Default Value
+        shipHit: false, //Ship Hit
+        shipHitCount: 0, //Ship Hit Count to check against length
+        shipMiss: false, //Ship Miss count for shot total, log miss in square
+        noShip: true, //Ocean
+        gridTurn: false, //
+        showShip: false //Show Ship on Board
+      }
+    )
+  }
 
-/*
+  /*
 ***Ship Placement (Step 1) - Random Placement***
 */
 
@@ -258,6 +258,12 @@ let compIndexArray = []
 let compLastIndex;
 let endGame = false
 
+console.log(`playerHits: ${playerHits}`)
+console.log(`playerShots: ${playerShots}`)
+console.log(`playerSunkCount: ${playerSunkCount}`)
+
+
+
 //Choosing who goes first
 if (Math.random() > 0.5) {
   playerTurn = true
@@ -267,8 +273,28 @@ if (Math.random() > 0.5) {
 
 
 
+//Function for Player Turn
+
+const playerAttacks = (idx) => {
+  console.log(`Player attacks index ${idx}`)
+  if (compAttributes[idx].noShip == true) {
+    compAttributes[idx].shipMiss = true
+    //Change Background and Update Stats
+    compSquares[idx].style.background = 'RGB(0, 0, 0, 0)'
+    playerShots++
+  } else {
+    compAttributes[idx].shipHit = true
+    //Applies a hit count to all indexes of hit ship
+    for (let i = 0; i < compAttributes[idx].shipLength; i++) {
+      // compAttributes[fleetCompIndexes[i]].shipHitCount++
+    }
+    //Change Background and Update Stats
+    compSquares[idx].style.background = 'RGB(255, 0, 0, 1)'
 
 
+  }
+
+}
 
 
 
@@ -303,6 +329,6 @@ if (Math.random() > 0.5) {
 //Event Listener for Player Clicks on Enemy Board
 for (let i = 0; i < playerSquares.length; i++) {
   compSquares[i].addEventListener('click', () => {
-      console.log(`Clicked square ${i}`);
+      playerAttacks(i);
     })
 }
