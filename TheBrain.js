@@ -1,4 +1,4 @@
-
+const exit = document.querySelector('#button')
 //Assign Player and Comp to variables and create nodelist for each
 const compBoard = document.querySelector('.compBoard')
 const compSquares = compBoard.children
@@ -248,11 +248,11 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
 */
 
 //Initializing Variables
-let playerTurn = false
-let playerShots = 0
-let playerHits = 0
-let playerSunkCount = 0
-let computerSunkCount = 0
+let playerTurn = false //turn toggle
+let playerShots = 0 //total player shots
+let playerHits = 0 //total player hits
+let playerSunkCount = 0 //amt of comp ships sunk by player
+let computerSunkCount = 0 //amt of player ships sunk by comp
 let compHit = false
 let compIndexArray = []
 let compLastIndex;
@@ -269,12 +269,7 @@ if (Math.random() > 0.5) {
   playerTurn = true
 }
 
-
-
-
-
 //Function for Player Turn
-
 const playerAttacks = (idx) => {
   console.log(`Player attacks index ${idx}`)
   if (compAttributes[idx].noShip == true) {
@@ -286,19 +281,52 @@ const playerAttacks = (idx) => {
     compAttributes[idx].shipHit = true
     //Applies a hit count to all indexes of hit ship
     for (let i = 0; i < compAttributes[idx].shipLength; i++) {
-      // compAttributes[fleetCompIndexes[i]].shipHitCount++
+      let shipType = compAttributes[idx].shipID
+      compAttributes[fleetCompIndexes[shipType][i]].shipHitCount++
+      if (compAttributes[idx].shipHitCount === compAttributes[idx].shipLength) {
+        compAttributes[fleetCompIndexes[shipType][i]].shipSunk = true
+      }
     }
+
+    if (compAttributes[idx].shipHitCount === compAttributes[idx].shipLength) {
+      playerSunkCount++
+      //NOTE ERROR OCCURS IF MULTIPLE CLICK ALLOWED!!!!
+    }
+    console.log(`playerSunkCount: ${playerSunkCount}`)
+
+
+
     //Change Background and Update Stats
     compSquares[idx].style.background = 'RGB(255, 0, 0, 1)'
+    playerShots++
+    playerHits++
+    
+    
+    //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!! 
+    if (playerSunkCount === 5) {
+      endGame = true
+    }
+    //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!!
 
-
+    //End Turn
+    playerTurn = false
   }
 
 }
 
 
 
+// const gameOver = () => {
+//   endGame = true
+//   Array.prototype.forEach.call(compSquares, (node) => {
+//     node.parentNode.removeChild(node);
+//   });
+//   Array.prototype.forEach.call(playerSquares, (node) => {
+//     node.parentNode.removeChild(node);
+//   });
 
+//   console.log('Game has ended')
+// }
 
 
 
@@ -330,5 +358,10 @@ const playerAttacks = (idx) => {
 for (let i = 0; i < playerSquares.length; i++) {
   compSquares[i].addEventListener('click', () => {
       playerAttacks(i);
-    })
+    }, {once: true})
 }
+
+exit.addEventListener('click', () => {
+  endGame = true;
+})
+
