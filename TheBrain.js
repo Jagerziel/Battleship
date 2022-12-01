@@ -338,6 +338,38 @@ const battleAttacks = (idx) => {
         
         console.log(`Array Length: ${compIndexArray.length} Roll: ${compRollIterator} Index: ${indexOfArray}`)
 
+        //Computer AI on Previously Hit Ship 
+        if (compHit === true) {
+          let newHitArray = []
+          let surroundingSquares = [-1, 1, -10, 10]
+          for (i = 0; i < surroundingSquares.length; i++) {
+            if (compLastIndex + surroundingSquares[i] >= 0 && //not off board to the left or top
+            compLastIndex + surroundingSquares[i] <= 99 //not off board to the bottom
+            ) {
+              if (i === 0 || i === 1) {
+                if (compLastIndex % 10 + surroundingSquares[i] <= 9) { //not off board to the right
+                  if (playerAttributes[compLastIndex + surroundingSquares[i]].shipHit === false && playerAttributes[compLastIndex + surroundingSquares[i]].shipMiss === false) {
+                    newHitArray.push(compLastIndex + surroundingSquares[i])
+                  }
+                } else {
+                  if (playerAttributes[compLastIndex + surroundingSquares[i]].shipHit === false && playerAttributes[compLastIndex + surroundingSquares[i]].shipMiss === false) {
+                    newHitArray.push(compLastIndex + surroundingSquares[i])
+
+
+
+                  //CHECK THIS CODEEEEEEEEEEEEEEEEEEE
+
+
+
+                  }
+                }
+              }
+            }
+          }  
+          if (newHitArray.length > 0) {
+            console.log(`Looking in array ${newHitArray} for next target!`)
+          }
+        }
 
 
 
@@ -345,13 +377,17 @@ const battleAttacks = (idx) => {
 
 
 
-        
         if (playerAttributes[indexOfArray].noShip === true) {
           playerAttributes[indexOfArray].shipMiss = true
           compHit = false
           playerSquares[indexOfArray].style.background = 'RGB(0, 0, 0, 0)'
+          
+          //Log Last Comp Array
+          compLastIndex = indexOfArray
+          
         } else {
           playerAttributes[indexOfArray].shipHit = true
+          compHit = true
 
           console.log(`${turnCountTest}) Computer hit index ${indexOfArray}, properties: ${playerAttributes[indexOfArray].shipID}`)
           //Applies a hit count to all indexes of hit ship
@@ -376,10 +412,10 @@ const battleAttacks = (idx) => {
           }
           //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!!
         
-        
+          //Log Last Comp Array
+          compLastIndex = indexOfArray
         
         }
-        //Remove index for shot that was taken by computer from array of available shots (compIndexArray)
 
         //End Turn
         playerTurn = true
