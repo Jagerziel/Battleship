@@ -260,16 +260,29 @@ let compLastIndex; //Used for AI
 let endGame = false //Used to end Game
 let turnCountTest = 0 //Testing Turn Count Console Logs - TO BE REMOVED
 
-console.log(`playerHits: ${playerHits}`)
-console.log(`playerShots: ${playerShots}`)
-console.log(`playerSunkCount: ${playerSunkCount}`)
+// console.log(`playerHits: ${playerHits}`)
+// console.log(`playerShots: ${playerShots}`)
+// console.log(`playerSunkCount: ${playerSunkCount}`)
 
 //Set Computer's Available Moves
 let compIndexArray = []
 for (let i = 0; i < 100; i++) {
   compIndexArray.push(i)
 }
-console.log(compIndexArray)
+
+//Shuffle compIndexArray
+let a, b;
+for (let i = compIndexArray.length-1; i >= 0; i--) {
+  a = Math.floor(Math.random() * (i + 1));
+  b = compIndexArray[i];
+  compIndexArray[i] = compIndexArray[a];
+  compIndexArray[a] = b;
+  console.log(`${i}) ${compIndexArray[i]}`)
+}
+//Set Variable for beginning iteration through compIndexArray
+let compRollIterator = 0 
+
+
 //Choosing who goes first
 if (Math.random() > 0.5) {
   playerTurn = true
@@ -319,8 +332,7 @@ const battleAttacks = (idx) => {
         //Computer's Turn
         
         //Initialize Computer Random Move
-        let roll = Math.floor(Math.random() * compIndexArray.length)
-        let indexOfArray = compIndexArray[roll]
+        let indexOfArray = compIndexArray[compRollIterator]
         
         // let compLastIndex = index
         
@@ -358,10 +370,10 @@ const battleAttacks = (idx) => {
         
         }
         //Remove index for shot that was taken by computer from array of available shots (compIndexArray)
-        compIndexArray.splice(roll, 1)
 
         //End Turn
         playerTurn = true
+        compRollIterator++
         console.log(`${turnCountTest}) Computer attacks index ${indexOfArray}`)
       }
     }
