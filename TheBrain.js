@@ -288,6 +288,7 @@ if (Math.random() > 0.5) {
   playerTurn = true
 }
 
+
 //Function for Player Turn
 const battleAttacks = (idx) => {
   for (let turn = 0; turn < 2; turn++) {
@@ -351,29 +352,24 @@ const battleAttacks = (idx) => {
                   if (playerAttributes[compLastIndex + surroundingSquares[i]].shipHit === false && playerAttributes[compLastIndex + surroundingSquares[i]].shipMiss === false) {
                     newHitArray.push(compLastIndex + surroundingSquares[i])
                   }
-                } else {
-                  if (playerAttributes[compLastIndex + surroundingSquares[i]].shipHit === false && playerAttributes[compLastIndex + surroundingSquares[i]].shipMiss === false) {
-                    newHitArray.push(compLastIndex + surroundingSquares[i])
-
-
-
-                  //CHECK THIS CODEEEEEEEEEEEEEEEEEEE
-
-
-
-                  }
                 }
+              } else if (playerAttributes[compLastIndex + surroundingSquares[i]].shipHit === false && playerAttributes[compLastIndex + surroundingSquares[i]].shipMiss === false) {
+                  newHitArray.push(compLastIndex + surroundingSquares[i])
               }
             }
           }  
           if (newHitArray.length > 0) {
             console.log(`Looking in array ${newHitArray} for next target!`)
           }
+
+          
+
+
+
+
+
+
         }
-
-
-
-
 
 
 
