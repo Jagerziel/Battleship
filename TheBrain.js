@@ -72,6 +72,8 @@ let fleetPlayerIndexes = {
 }
 
 
+
+
 //Computer Ship Placement
 for (let i = 0; i < Object.keys(fleet).length; i++) {
   //Randomize ship: vertical or horizontal
@@ -253,10 +255,10 @@ let playerShots = 0 //total player shots
 let playerHits = 0 //total player hits
 let playerSunkCount = 0 //amt of comp ships sunk by player
 let computerSunkCount = 0 //amt of player ships sunk by comp
-let compHit = false
-let compLastIndex;
-let endGame = false
-let turnCountTest = 0
+let compHit = false  //Used for AI
+let compLastIndex; //Used for AI
+let endGame = false //Used to end Game
+let turnCountTest = 0 //Testing Turn Count Console Logs - TO BE REMOVED
 
 console.log(`playerHits: ${playerHits}`)
 console.log(`playerShots: ${playerShots}`)
@@ -277,7 +279,7 @@ if (Math.random() > 0.5) {
 const battleAttacks = (idx) => {
   for (let turn = 0; turn < 2; turn++) {
     if (playerTurn === true){
-        if (compAttributes[idx].noShip == true) {
+        if (compAttributes[idx].noShip === true) {
           compAttributes[idx].shipMiss = true
           //Change Background and Update Stats
           compSquares[idx].style.background = 'RGB(0, 0, 0, 0)'
@@ -311,50 +313,56 @@ const battleAttacks = (idx) => {
         //End Turn
         playerTurn = false
         turnCountTest++
-        console.log(`${turnCountTest}) Player attacks index ${idx}`)
+        // console.log(`Player attacks index ${idx}`) //Check player attack square
 
       } else {
         //Computer's Turn
         
         //Initialize Computer Random Move
         let roll = Math.floor(Math.random() * compIndexArray.length)
-        let index = compIndexArray[roll]
+        let indexOfArray = compIndexArray[roll]
+        
         // let compLastIndex = index
         
-        if (playerAttributes[index].noShip === true) {
-          playerAttributes[index].shipMiss = true
+        console.log(`Array Length: ${compIndexArray.length} Roll: ${roll} Index: ${indexOfArray}`)
+
+        if (playerAttributes[indexOfArray].noShip === true) {
+          playerAttributes[indexOfArray].shipMiss = true
           compHit = false
-          playerSquares[index].style.background = 'RGB(0, 0, 0, 0)'
+          playerSquares[indexOfArray].style.background = 'RGB(0, 0, 0, 0)'
         } else {
-          playerAttributes[index].shipMiss = false
-          playerAttributes[index].shipHit = true
-          for (let i = 0; i < playerAttributes[index].shipLength; i++) {
-            let shipType = playerAttributes[index].shipID
+          playerAttributes[indexOfArray].shipHit = true
+          console.log(`${turnCountTest}) Computer hit index ${indexOfArray}, properties: ${playerAttributes[indexOfArray].shipID}`)
+          for (let i = 0; i < playerAttributes[indexOfArray].shipLength; i++) {
+            let shipType = playerAttributes[indexOfArray].shipID
             playerAttributes[fleetPlayerIndexes[shipType][i]].shipHitCount++
-            if (playerAttributes[index].shipHitCount === playerAttributes[index].shipLength) {
+            if (playerAttributes[indexOfArray].shipHitCount === playerAttributes[indexOfArray].shipLength) {
               playerAttributes[fleetPlayerIndexes[shipType][i]].shipSunk = true
             }
           }
           //Iterate Sunk Ship Count
-          if (playerAttributes[index].shipHitCount === playerAttributes[index].shipLength) {
+          if (playerAttributes[indexOfArray].shipHitCount === playerAttributes[indexOfArray].shipLength) {
             computerSunkCount++
           }
+
+          //Change Background and Update Stats
+          playerSquares[idx].style.background = 'RGB(255, 0, 0, 1)'
+          
           //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!! 
           if (playerSunkCount === 5) {
             endGame = true
           }
-        
-        //Change Background and Update Stats
-        playerSquares[idx].style.background = 'RGB(255, 0, 0, 1)'
-        
-        
           //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!!
-          compIndexArray.splice(roll, 1)
-        }
         
+        
+        
+        }
+        //Remove index for shot that was taken by computer from array of available shots (compIndexArray)
+        compIndexArray.splice(roll, 1)
+
         //End Turn
         playerTurn = true
-        console.log(`${turnCountTest}) Computer attacks index ${idx}`)
+        console.log(`${turnCountTest}) Computer attacks index ${indexOfArray}`)
       }
     }
   }
@@ -394,8 +402,8 @@ const battleAttacks = (idx) => {
 // console.log(playerAttributes[7].shipID)
 // console.log(playerAttributes[8].shipID)
 // console.log(playerAttributes[9].shipID)
-// console.log(fleetCompIndexes)
-// console.log(fleetPlayerIndexes)
+console.log(fleetCompIndexes)
+console.log(fleetPlayerIndexes)
 
 
 
