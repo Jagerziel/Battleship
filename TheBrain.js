@@ -292,7 +292,7 @@ const playerAttacks = (idx) => {
         compAttributes[fleetCompIndexes[shipType][i]].shipSunk = true
       }
     }
-
+    //Iterate Sunk Ship Count
     if (compAttributes[idx].shipHitCount === compAttributes[idx].shipLength) {
       playerSunkCount++
     }
@@ -311,18 +311,17 @@ const playerAttacks = (idx) => {
       endGame = true
     }
     //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!!
-
-    //End Turn
-    playerTurn = false
   }
-
+  //End Turn
+  playerTurn = false
 }
 
 //Function for Computer Turn
 const compAttacks = () => {
   console.log(`Player attacks index ${idx}`)
   //Initialize Computer Random Move
-  let index = Math.floor(Math.random() * compIndexArray.length)
+  let roll = Math.floor(Math.random() * compIndexArray.length)
+  let index = compIndexArray[roll]
   let compLastIndex = index
 
   if (playerAttributes[indexCheck].noShip === true) {
@@ -339,23 +338,20 @@ const compAttacks = () => {
         playerAttributes[fleetPlayerIndexes[shipType][i]].shipSunk = true
       }
     }
-
-
-
-
+    //Iterate Sunk Ship Count
+    if (playerAttributes[index].shipHitCount === playerAttributes[index].shipLength) {
+      computerSunkCount++
+    }
+    console.log(`playerSunkCount: ${computerSunkCount}`)
+    //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!! 
+    if (playerSunkCount === 5) {
+      endGame = true
+    }
+    //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!!
+    compIndexArray.splice(index, 1)
   }
-
-    compHit = false
-
-
-
-
-
-
+  //End Turn
   playerTurn = true
-
-
-
 }
 
 
