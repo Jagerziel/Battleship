@@ -21,8 +21,6 @@ for (let i = 0; i < compSquares.length; i++) {
       shipHitCount: 0, //Ship Hit Count to check against length
       shipMiss: false, //Ship Miss count for shot total, log miss in square
       noShip: true, //Ocean
-      gridTurn: true, //
-      showShip: false //Show Ship on Board
     }
     )
   }
@@ -36,8 +34,6 @@ for (let i = 0; i < compSquares.length; i++) {
         shipHitCount: 0, //Ship Hit Count to check against length
         shipMiss: false, //Ship Miss count for shot total, log miss in square
         noShip: true, //Ocean
-        gridTurn: false, //
-        showShip: false //Show Ship on Board
       }
     )
   }
@@ -70,9 +66,6 @@ let fleetPlayerIndexes = {
   cruiserTwo: [],
   frigate: []
 }
-
-
-
 
 //Computer Ship Placement
 for (let i = 0; i < Object.keys(fleet).length; i++) {
@@ -260,10 +253,6 @@ let compLastIndex; //Used for AI
 let endGame = false //Used to end Game
 let turnCountTest = 0 //Testing Turn Count Console Logs - TO BE REMOVED
 
-// console.log(`playerHits: ${playerHits}`)
-// console.log(`playerShots: ${playerShots}`)
-// console.log(`playerSunkCount: ${playerSunkCount}`)
-
 //Set Computer's Available Moves
 let compIndexArray = []
 for (let i = 0; i < 100; i++) {
@@ -336,8 +325,6 @@ const battleAttacks = (idx) => {
         let indexOfArray = compIndexArray[compRollIterator]
         
         // let compLastIndex = index
-        
-        console.log(`Array Length: ${compIndexArray.length} Roll: ${compRollIterator} Index: ${indexOfArray}`)
 
         //Computer AI on Previously Hit Ship 
         if (compHit === true) {
@@ -359,12 +346,10 @@ const battleAttacks = (idx) => {
             }
           }  
           if (newHitArray.length > 0) {
-            console.log(`Looking in array ${newHitArray} for next target!`)
+            console.log(`AI Activated: Looking in array ${newHitArray} for next target!`)
           }
 
-          
-
-
+          //INSERT NEXT PORTION OF AI CODE HERE
 
 
 
