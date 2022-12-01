@@ -254,13 +254,18 @@ let playerHits = 0 //total player hits
 let playerSunkCount = 0 //amt of comp ships sunk by player
 let computerSunkCount = 0 //amt of player ships sunk by comp
 let compHit = false
-let compIndexArray = []
 let compLastIndex;
 let endGame = false
 
 console.log(`playerHits: ${playerHits}`)
 console.log(`playerShots: ${playerShots}`)
 console.log(`playerSunkCount: ${playerSunkCount}`)
+
+//Set Computer's Available Moves
+let compIndexArray = []
+for (let i = 0; i < 100; i++) {
+  compIndexArray.push(i)
+}
 
 
 
@@ -290,7 +295,6 @@ const playerAttacks = (idx) => {
 
     if (compAttributes[idx].shipHitCount === compAttributes[idx].shipLength) {
       playerSunkCount++
-      //NOTE ERROR OCCURS IF MULTIPLE CLICK ALLOWED!!!!
     }
     console.log(`playerSunkCount: ${playerSunkCount}`)
 
@@ -313,6 +317,52 @@ const playerAttacks = (idx) => {
   }
 
 }
+
+//Function for Computer Turn
+const compAttacks = () => {
+  console.log(`Player attacks index ${idx}`)
+  //Initialize Computer Random Move
+  let index = Math.floor(Math.random() * compIndexArray.length)
+  let compLastIndex = index
+
+  if (playerAttributes[indexCheck].noShip === true) {
+    compAttributes[index].shipMiss = true
+    compHit = false
+    playerSquares[index].style.background = 'RGB(0, 0, 0, 0)'
+  } else {
+    playerAttributes[index].shipMiss = false
+    playerAttributes[index].shipHit = true
+    for (let i = 0; i < playerAttributes[index].shipLength; i++) {
+      let shipType = playerAttributes[index].shipID
+      playerAttributes[fleetplayerIndexes[shipType][i]].shipHitCount++
+      if (playerAttributes[index].shipHitCount === playerAttributes[index].shipLength) {
+        playerAttributes[fleetPlayerIndexes[shipType][i]].shipSunk = true
+      }
+    }
+
+
+
+
+  }
+
+    compHit = false
+
+
+
+
+
+
+  playerTurn = true
+
+
+
+}
+
+
+
+
+
+
 
 
 
