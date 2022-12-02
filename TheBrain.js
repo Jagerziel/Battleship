@@ -258,7 +258,7 @@ let computerSunkCount = 0 //amt of player ships sunk by comp
 let compHit = false //Used for AI
 let compLastIndex; //Used for AI
 let endGame = false //Used to end Game
-let turnCountTest = 0 //Testing Turn Count Console Logs - TO BE REMOVED
+let turnCountTest = 0 //Turn Count for Console Logs 
 
 //Set Computer's Available Moves
 let compIndexArray = []
@@ -475,25 +475,13 @@ const endGameFunc = (bool) => {
     summaryStats[`compHits`] = compHits
     summaryStats[`playerSunkCount`] = playerSunkCount
     summaryStats[`computerSunkCount`] = computerSunkCount
-    
     localStorage.setItem('summaryStats', JSON.stringify(summaryStats))
-    
+    //Go to Battle Summary
     location.href="BattleSummary.html"
   }
 }
 
-
-
-/*
-Remaining Steps:
-1) End Game - COMPLETED
-2) Battle Summary - 
-3) Reset All Statistics
-4) Extra Features?
-*/
-
-
-//ALL EVENT LISTENERS
+//EVENT LISTENERS
 
 //Event Listener for Player Clicks on Enemy Board
 for (let i = 0; i < playerSquares.length; i++) {
@@ -503,6 +491,5 @@ for (let i = 0; i < playerSquares.length; i++) {
 }
 
 exit.addEventListener('onclick', () => {
-    // endGame = true;
-    endGameFunc(true)
-  })
+  endGameFunc(true)
+})

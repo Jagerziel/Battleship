@@ -1,3 +1,5 @@
+const button_homePage = document.querySelector('#button')
+
 //Turn grid into nodelist for insertion of statistics
 const summaryGrid = document.querySelector('#statGrid')
 const summarySquares = summaryGrid.children
@@ -10,17 +12,17 @@ summarySquares[10].innerHTML = "Accuracy"
 summarySquares[13].innerHTML = "Ships Sunk"
 summarySquares[16].innerHTML = "Result"
 
-// import from "TheBrain"
+//Import from "TheBrain"
 let summaryStats = JSON.parse(localStorage.getItem('summaryStats'))
 console.log(summaryStats)
 
-
+//Declare Variables
 let playerShots = summaryStats.playerShots
 let compShots = summaryStats.compShots
-let playerHits = localStorage.getItem('playerHits')
-let compHits = localStorage.getItem('compHits')
-let playerSunkCount = localStorage.getItem('playerSunkCount')
-let computerSunkCount = localStorage.getItem('computerSunkCount')
+let playerHits = summaryStats.playerHits
+let compHits = summaryStats.compHits
+let playerSunkCount = summaryStats.playerSunkCount
+let computerSunkCount = summaryStats.computerSunkCount
 console.log(playerShots)
 
 
@@ -58,7 +60,13 @@ const resultPlayer= (compSunk, playerSunk) => {
 summarySquares[15].innerHTML = resultPlayer(computerSunkCount, playerSunkCount)
 summarySquares[17].innerHTML = resultComp(computerSunkCount, playerSunkCount)
 
+// Clear Local Storage
+const clrStorage = () => {
+  localStorage.clear()
+}
 
+//Event Listeners
+button_homePage.addEventListener('click', clrStorage)
 
 
 
