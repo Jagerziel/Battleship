@@ -266,10 +266,10 @@ for (let i = compIndexArray.length-1; i >= 0; i--) {
   b = compIndexArray[i];
   compIndexArray[i] = compIndexArray[a];
   compIndexArray[a] = b;
-  console.log(`${i}) ${compIndexArray[i]}`)
 }
 //Set Variable for beginning iteration through compIndexArray
 let compRollIterator = 0 
+
 
 
 //Choosing who goes first
@@ -316,56 +316,101 @@ const battleAttacks = (idx) => {
         //End Turn
         playerTurn = false
         turnCountTest++
-        // console.log(`Player attacks index ${idx}`) //Check player attack square
+        // console.log(`${turnCountTest}) Player Attacks Index ${idx}`)
 
-      } else {
+      } else if (compHit === true) {
         //Computer's Turn
         
-        //Initialize Computer Random Move
-        let indexOfArray = compIndexArray[compRollIterator]
-        
-        // let compLastIndex = index
-
         //Computer AI on Previously Hit Ship 
-        if (compHit === true) {
-          let newHitArray = []
-          let surroundingSquares = [-1, 1, -10, 10]
-          for (i = 0; i < surroundingSquares.length; i++) {
-            if (compLastIndex + surroundingSquares[i] >= 0 && //not off board to the left or top
-            compLastIndex + surroundingSquares[i] <= 99 //not off board to the bottom
-            ) {
-              if (i === 0 || i === 1) {
-                if (compLastIndex % 10 + surroundingSquares[i] <= 9) { //not off board to the right
-                  if (playerAttributes[compLastIndex + surroundingSquares[i]].shipHit === false && playerAttributes[compLastIndex + surroundingSquares[i]].shipMiss === false) {
-                    newHitArray.push(compLastIndex + surroundingSquares[i])
-                  }
-                }
-              } else if (playerAttributes[compLastIndex + surroundingSquares[i]].shipHit === false && playerAttributes[compLastIndex + surroundingSquares[i]].shipMiss === false) {
+        let newHitArray = []
+        let surroundingSquares = [-1, 1, -10, 10]
+        for (i = 0; i < surroundingSquares.length; i++) {
+          if (compLastIndex + surroundingSquares[i] >= 0 && //not off board to the left or top
+          compLastIndex + surroundingSquares[i] <= 99 //not off board to the bottom
+          ) {
+            if (i === 0 || i === 1) {
+              if (compLastIndex % 10 + surroundingSquares[i] <= 9) { //not off board to the right
+                if (playerAttributes[compLastIndex + surroundingSquares[i]].shipHit === false && playerAttributes[compLastIndex + surroundingSquares[i]].shipMiss === false) {
                   newHitArray.push(compLastIndex + surroundingSquares[i])
+                }
               }
+            } else if (playerAttributes[compLastIndex + surroundingSquares[i]].shipHit === false && playerAttributes[compLastIndex + surroundingSquares[i]].shipMiss === false) {
+              newHitArray.push(compLastIndex + surroundingSquares[i])
             }
-          }  
-          if (newHitArray.length > 0) {
-            console.log(`AI Activated: Looking in array ${newHitArray} for next target!`)
           }
-
-          //INSERT NEXT PORTION OF AI CODE HERE
-
-
-
-
         }
 
 
+        if (newHitArray.length > 0) {
+          console.log(`${turnCountTest - 1}) AI Activated: Looking in array ${newHitArray} for next target!`)
+        }
+        
+
+        //INSERT NEXT PORTION OF AI CODE HERE
+        if (newHitArray.length > 0 && playerAttributes[compLastIndex].shipSunk === false) {
+          let attackAgainIndex = newHitArray[Math.floor(Math.random() * newHitArray.length)]
+
+          //remove next try from compIndexArray
+          compIndexArray.splice(compIndexArray.indexOf(attackAgainIndex),1)
+
+          //Comp Attacks One of the free Index Spaces
+          if (playerAttributes[attackAgainIndex].noShip === true) {
+            playerAttributes[attackAgainIndex].shipMiss = true
+            playerSquares[attackAgainIndex].style.background = 'RGB(0, 0, 0, 0)'
+            if (newHitArray.length === 1) {
+              compHit = false
+              compLastIndex = attackAgainIndex
+              console.log(`AI Deactivated - Out of Range!`)
+            } else {
+              compHit = true
+            }
+          } else {
+            playerAttributes[attackAgainIndex].shipHit = true
+            if (newHitArray.length > 0) {
+              compHit = true
+              compLastIndex = attackAgainIndex
+            } else {
+              compHit = false
+              compLastIndex = attackAgainIndex
+              console.log(`AI Deactivated - Out of Range!`)
+            }
+            console.log(`${turnCountTest}) Computer hit index ${attackAgainIndex}, properties: ${playerAttributes[attackAgainIndex].shipID}`)
+            //Applies a hit count to all indexes of hit ship
+            for (let i = 0; i < playerAttributes[attackAgainIndex].shipLength; i++) {
+              let shipType = playerAttributes[attackAgainIndex].shipID
+              playerAttributes[fleetPlayerIndexes[shipType][i]].shipHitCount++
+              if (playerAttributes[attackAgainIndex].shipHitCount === playerAttributes[attackAgainIndex].shipLength) {
+                playerAttributes[fleetPlayerIndexes[shipType][i]].shipSunk = true
+              }
+            }
+            //Iterate Sunk Ship Count
+            if (playerAttributes[attackAgainIndex].shipHitCount === playerAttributes[attackAgainIndex].shipLength) {
+              computerSunkCount++
+              compHit = false
+              compLastIndex = attackAgainIndex
+              console.log(`AI Deactivated - Ship Sunk!`)
+            }
+  
+            //Change Background and Update Stats
+            playerSquares[attackAgainIndex].style.background = 'RGB(255, 0, 0, 1)'
+            
+            //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!! 
+            if (playerSunkCount === 5) {
+              endGame = true
+            }
+          } 
+          playerTurn = true
+        }
+      } else {
+        //Initialize Computer Random Move
+        let indexOfArray = compIndexArray[compRollIterator]
+        compLastIndex = indexOfArray
 
         if (playerAttributes[indexOfArray].noShip === true) {
           playerAttributes[indexOfArray].shipMiss = true
           compHit = false
           playerSquares[indexOfArray].style.background = 'RGB(0, 0, 0, 0)'
-          
-          //Log Last Comp Array
-          compLastIndex = indexOfArray
-          
+          console.log(`${turnCountTest}) Computer attacks index ${indexOfArray} and misses shot`)
         } else {
           playerAttributes[indexOfArray].shipHit = true
           compHit = true
@@ -382,6 +427,7 @@ const battleAttacks = (idx) => {
           //Iterate Sunk Ship Count
           if (playerAttributes[indexOfArray].shipHitCount === playerAttributes[indexOfArray].shipLength) {
             computerSunkCount++
+            compHit = false
           }
 
           //Change Background and Update Stats
@@ -392,16 +438,12 @@ const battleAttacks = (idx) => {
             endGame = true
           }
           //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!!
-        
-          //Log Last Comp Array
-          compLastIndex = indexOfArray
-        
         }
 
         //End Turn
         playerTurn = true
         compRollIterator++
-        console.log(`${turnCountTest}) Computer attacks index ${indexOfArray}`)
+        // console.log(`${turnCountTest}) Computer attacks index ${indexOfArray}`)
       }
     }
   }
@@ -441,8 +483,8 @@ const battleAttacks = (idx) => {
 // console.log(playerAttributes[7].shipID)
 // console.log(playerAttributes[8].shipID)
 // console.log(playerAttributes[9].shipID)
-console.log(fleetCompIndexes)
-console.log(fleetPlayerIndexes)
+// console.log(fleetCompIndexes)
+// console.log(fleetPlayerIndexes)
 
 
 
@@ -456,7 +498,7 @@ console.log(fleetPlayerIndexes)
 //Event Listener for Player Clicks on Enemy Board
 for (let i = 0; i < playerSquares.length; i++) {
   compSquares[i].addEventListener('click', () => {
-      battleAttacks(i);
+    battleAttacks(i);
   }, {once: true})
 }
 

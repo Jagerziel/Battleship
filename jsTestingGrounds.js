@@ -39,3 +39,4 @@ for (let i = compIndexArray.length-1; i >= 0; i--) {
   console.log(`${i}) ${compIndexArray[i]}`)
 }
 
+console.log(`Testing index no ${3} at index ${compIndexArray.indexOf(3)}`)
