@@ -457,8 +457,8 @@ const battleAttacks = (idx) => {
         playerTurn = true
         compRollIterator++
       }
-    }
   }
+}
 
 
 /*
@@ -476,6 +476,7 @@ const endGameFunc = (bool) => {
     summaryStats[`playerSunkCount`] = playerSunkCount
     summaryStats[`computerSunkCount`] = computerSunkCount
     localStorage.setItem('summaryStats', JSON.stringify(summaryStats))
+    console.log(summaryStats)
     //Go to Battle Summary
     location.href="BattleSummary.html"
   }
@@ -490,6 +491,6 @@ for (let i = 0; i < playerSquares.length; i++) {
   }, {once: true})
 }
 
-exit.addEventListener('onclick', () => {
+exit.addEventListener('click', () => {
   endGameFunc(true)
 })
