@@ -478,23 +478,7 @@ Remaining Steps:
 4) Extra Features?
 */
 
-
-
-//TESTING
-// console.log(playerAttributes[0].shipID)
-// console.log(playerAttributes[1].shipID)
-// console.log(playerAttributes[2].shipID)
-// console.log(playerAttributes[3].shipID)
-// console.log(playerAttributes[4].shipID)
-// console.log(playerAttributes[5].shipID)
-// console.log(playerAttributes[6].shipID)
-// console.log(playerAttributes[7].shipID)
-// console.log(playerAttributes[8].shipID)
-// console.log(playerAttributes[9].shipID)
-// console.log(fleetCompIndexes)
-// console.log(fleetPlayerIndexes)
-
-
+//Exporting
 
 
 
