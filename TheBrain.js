@@ -472,8 +472,8 @@ const endGameFunc = (bool) => {
 
 /*
 Remaining Steps:
-1) End Game
-2) Battle Summary
+1) End Game - COMPLETED
+2) Battle Summary - 
 3) Reset All Statistics
 4) Extra Features?
 */
