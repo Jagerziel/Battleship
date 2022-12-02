@@ -19,6 +19,7 @@ h1 {
   font-size: large;
   width: 200px;
   height: 70px;
+  border-radius: 20px;
 }
 
 .button {
@@ -31,9 +32,9 @@ h1 {
   position: relative;
   display: flex;
   justify-content: center;
+  border-radius: 20px;
   background-color: rgba(255, 255, 255, .65);
   margin: 12% 10% 10% 10%;
-  
   min-width: 1000px;
   min-height: 700px;
   max-height: 2000px;
@@ -45,8 +46,6 @@ h1 {
 }
 
 .statistics {
-  border: solid;
-  border-color: black;
   display: flex;
   justify-content: center;
   align-items: center;

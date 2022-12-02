@@ -251,9 +251,11 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
 let playerTurn = true //turn toggle
 let playerShots = 0 //total player shots
 let playerHits = 0 //total player hits
+let compShots = 0 //total comp shots
+let compHits = 0 //total comp hits
 let playerSunkCount = 0 //amt of comp ships sunk by player
 let computerSunkCount = 0 //amt of player ships sunk by comp
-let compHit = false  //Used for AI
+let compHit = false //Used for AI
 let compLastIndex; //Used for AI
 let endGame = false //Used to end Game
 let turnCountTest = 0 //Testing Turn Count Console Logs - TO BE REMOVED
@@ -315,12 +317,12 @@ const battleAttacks = (idx) => {
           compSquares[idx].style.background = 'RGB(255, 0, 0, 1)'
           playerShots++
           playerHits++  
-          //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!! 
+
+          //Execute End Game if 5 Ships Sunk
           if (playerSunkCount === 5) {
             endGame = true
             return true
           }
-          //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!!
         }
         //End Turn
         playerTurn = false
@@ -328,7 +330,7 @@ const battleAttacks = (idx) => {
       } else if (compHit === true) {
         //Computer's Turn
         
-        //Computer AI on Previously Hit Ship 
+        //Computer AI: Determine Indexes to Target Next
         let newHitArray = []
         let surroundingSquares = [-1, 1, -10, 10]
         for (i = 0; i < surroundingSquares.length; i++) {
@@ -346,14 +348,11 @@ const battleAttacks = (idx) => {
             }
           }
         }
-
-
+        //Console Log AI Activation
         if (newHitArray.length > 0) {
           console.log(`${turnCountTest}) AI Activated: Looking in array ${newHitArray} for next target!`)
         }
-        
-
-        //INSERT NEXT PORTION OF AI CODE HERE
+        //Computer AI: Target Indexes Randomly that are stored in Array
         if (newHitArray.length > 0 && playerAttributes[compLastIndex].shipSunk === false) {
           let attackAgainIndex = newHitArray[Math.floor(Math.random() * newHitArray.length)]
 
@@ -363,6 +362,7 @@ const battleAttacks = (idx) => {
           //Comp Attacks One of the free Index Spaces
           if (playerAttributes[attackAgainIndex].noShip === true) {
             playerAttributes[attackAgainIndex].shipMiss = true
+            compShots++
             playerSquares[attackAgainIndex].style.background = 'RGB(0, 0, 0, 0)'
             if (newHitArray.length === 1) {
               compHit = false
@@ -373,6 +373,8 @@ const battleAttacks = (idx) => {
             }
           } else {
             playerAttributes[attackAgainIndex].shipHit = true
+            compShots++
+            compHits++
             if (newHitArray.length > 0) {
               compHit = true
               compLastIndex = attackAgainIndex
@@ -418,6 +420,7 @@ const battleAttacks = (idx) => {
           playerAttributes[indexOfArray].shipMiss = true
           compHit = false
           playerSquares[indexOfArray].style.background = 'RGB(0, 0, 0, 0)'
+          compShots++
           console.log(`${turnCountTest}) Computer attacks index ${indexOfArray} and misses shot`)
         } else {
           playerAttributes[indexOfArray].shipHit = true
@@ -440,19 +443,19 @@ const battleAttacks = (idx) => {
 
           //Change Background and Update Stats
           playerSquares[indexOfArray].style.background = 'RGB(255, 0, 0, 1)'
+          compShots++
+          compHits++
           
-          //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!! 
+          //Execute End Game if 5 Ships Sunk
           if (computerSunkCount === 5) {
             endGame = true
             return true
           }
-          //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!!
         }
 
         //End Turn
         playerTurn = true
         compRollIterator++
-        // console.log(`${turnCountTest}) Computer attacks index ${indexOfArray}`)
       }
     }
   }
@@ -464,6 +467,17 @@ const battleAttacks = (idx) => {
 
 const endGameFunc = (bool) => {
   if (bool === true) {
+    //Exporting
+    let summaryStats = {}
+    summaryStats[`playerShots`] = playerShots
+    summaryStats[`compShots`] = compShots
+    summaryStats[`playerHits`] = playerHits
+    summaryStats[`compHits`] = compHits
+    summaryStats[`playerSunkCount`] = playerSunkCount
+    summaryStats[`computerSunkCount`] = computerSunkCount
+    
+    localStorage.setItem('summaryStats', JSON.stringify(summaryStats))
+    
     location.href="BattleSummary.html"
   }
 }
@@ -478,12 +492,6 @@ Remaining Steps:
 4) Extra Features?
 */
 
-//Exporting
-
-
-
-
-
 
 //ALL EVENT LISTENERS
 
@@ -495,5 +503,6 @@ for (let i = 0; i < playerSquares.length; i++) {
 }
 
 exit.addEventListener('onclick', () => {
-    endGame = true;
+    // endGame = true;
+    endGameFunc(true)
   })
