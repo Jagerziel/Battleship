@@ -282,13 +282,16 @@ if (Math.random() > 0.5) {
 const battleAttacks = (idx) => {
   for (let turn = 0; turn < 2; turn++) {
     if (playerTurn === true){
+      turnCountTest++
         if (compAttributes[idx].noShip === true) {
           compAttributes[idx].shipMiss = true
           //Change Background and Update Stats
           compSquares[idx].style.background = 'RGB(0, 0, 0, 0)'
           playerShots++
+          console.log(`${turnCountTest}) Player Attacks Index ${idx} and misses!`)
         } else {
           compAttributes[idx].shipHit = true
+          console.log(`${turnCountTest}) Player Attacks Index ${idx} and hits!`)
           //Applies a hit count to all indexes of hit ship
           for (let i = 0; i < compAttributes[idx].shipLength; i++) {
             let shipType = compAttributes[idx].shipID
@@ -300,13 +303,13 @@ const battleAttacks = (idx) => {
           //Iterate Sunk Ship Count
           if (compAttributes[idx].shipHitCount === compAttributes[idx].shipLength) {
             playerSunkCount++
+            console.log(`Computer Ship Sunk!`)
           }
             
           //Change Background and Update Stats
           compSquares[idx].style.background = 'RGB(255, 0, 0, 1)'
           playerShots++
           playerHits++  
-          
           //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!! 
           if (playerSunkCount === 5) {
             endGame = true
@@ -315,8 +318,6 @@ const battleAttacks = (idx) => {
         }
         //End Turn
         playerTurn = false
-        turnCountTest++
-        // console.log(`${turnCountTest}) Player Attacks Index ${idx}`)
 
       } else if (compHit === true) {
         //Computer's Turn
@@ -342,7 +343,7 @@ const battleAttacks = (idx) => {
 
 
         if (newHitArray.length > 0) {
-          console.log(`${turnCountTest - 1}) AI Activated: Looking in array ${newHitArray} for next target!`)
+          console.log(`${turnCountTest}) AI Activated: Looking in array ${newHitArray} for next target!`)
         }
         
 
