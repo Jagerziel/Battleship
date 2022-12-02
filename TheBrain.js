@@ -1,4 +1,5 @@
-const exit = document.querySelector('#button')
+const exit = document.querySelector('#button1_exit')
+
 //Assign Player and Comp to variables and create nodelist for each
 const compBoard = document.querySelector('.compBoard')
 const compSquares = compBoard.children
@@ -43,7 +44,9 @@ for (let i = 0; i < compSquares.length; i++) {
 */
 
 //Assign variables
-let pos = "";
+let pos = ""; 
+
+//Assign fleet object with keys = "type of ship" and values = "length" 
 let fleet = {
   airCraftCarrier: 5,
   destroyer: 4,
@@ -51,6 +54,8 @@ let fleet = {
   cruiserTwo: 3,
   frigate: 2
 }
+
+//Create objects to hold indexes of where the ship is placed (ex. ship can be indexes 76, 77, 78, 79)
 let fleetCompIndexes = {
   airCraftCarrier: [],
   destroyer: [],
@@ -313,6 +318,7 @@ const battleAttacks = (idx) => {
           //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!! 
           if (playerSunkCount === 5) {
             endGame = true
+            return true
           }
           //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!!
         }
@@ -396,8 +402,9 @@ const battleAttacks = (idx) => {
             playerSquares[attackAgainIndex].style.background = 'RGB(255, 0, 0, 1)'
             
             //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!! 
-            if (playerSunkCount === 5) {
+            if (computerSunkCount === 5) {
               endGame = true
+              return true
             }
           } 
           playerTurn = true
@@ -435,8 +442,9 @@ const battleAttacks = (idx) => {
           playerSquares[indexOfArray].style.background = 'RGB(255, 0, 0, 1)'
           
           //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!! 
-          if (playerSunkCount === 5) {
+          if (computerSunkCount === 5) {
             endGame = true
+            return true
           }
           //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!!
         }
@@ -454,7 +462,11 @@ const battleAttacks = (idx) => {
 ***Ending the Game (Step 3) - To Battle!***
 */
 
-
+const endGameFunc = (bool) => {
+  if (bool === true) {
+    location.href="BattleSummary.html"
+  }
+}
 
 
 
@@ -465,20 +477,6 @@ Remaining Steps:
 3) Reset All Statistics
 4) Extra Features?
 */
-
-
-// const gameOver = () => {
-//   endGame = true
-//   Array.prototype.forEach.call(compSquares, (node) => {
-//     node.parentNode.removeChild(node);
-//   });
-//   Array.prototype.forEach.call(playerSquares, (node) => {
-//     node.parentNode.removeChild(node);
-//   });
-
-//   console.log('Game has ended')
-// }
-
 
 
 
@@ -508,11 +506,10 @@ Remaining Steps:
 //Event Listener for Player Clicks on Enemy Board
 for (let i = 0; i < playerSquares.length; i++) {
   compSquares[i].addEventListener('click', () => {
-    battleAttacks(i);
+    endGameFunc(battleAttacks(i));
   }, {once: true})
 }
 
-exit.addEventListener('click', () => {
-  endGame = true;
-})
-
+exit.addEventListener('onclick', () => {
+    endGame = true;
+  })
