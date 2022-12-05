@@ -42,11 +42,13 @@ Enhancements that are on the radar for future deployment:
 
 Basic:
 - Add button to refresh ship randomization
+- Highlight the 'Last Targeted' square for player and computer
 - Add targeting icon when hovering over valid attack squares
 - Enhance imaging for ships, hits, misses
 - Add sound effects / music
-- Add messages for when a ship is sunk
+- Add messages for when a ship is sunk (currently only in console)
 - Add console to show battle summary similar to existing Console Log
+- Add 'Play Again' button to Battle Summary page
 
 Advanced:
 - Add ship deployement page for the player to manually place ships (or randomize if they so choose)

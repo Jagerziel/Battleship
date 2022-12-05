@@ -1,3 +1,7 @@
+//Toggle Developer Mode
+let devMode = true
+
+//Exit button variable
 const exit = document.querySelector('#button1_exit')
 
 //Assign Player and Comp to variables and create nodelist for each
@@ -102,7 +106,7 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
           shipPlacement = true;
           for (let j = Object.values(fleet)[i]; j > 0; j--) {
             //Fleet Positioning with Ship no.  Comment out for final version - USE FOR TESTING
-            compSquares[index].innerHTML = `X${i}`
+            (devMode === true) ? (compSquares[index].innerHTML = `X${i}` ) : 
 
             //Update Attributes for each square where the ship is placed
             compAttributes[index].noShip = false
@@ -139,7 +143,7 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
           shipPlacement = true;
           for (let j = 0; j < Object.values(fleet)[i]; j++) {
             //Fleet Positioning with Ship no.  Comment out for final version - USE FOR TESTING
-            compSquares[index].innerHTML = `Y${i}`
+            (devMode === true) ? compSquares[index].innerHTML = `Y${i}` :
             
             //Update Attributes for each square where the ship is placed
             compAttributes[index].noShip = false
@@ -188,7 +192,7 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
           shipPlacement = true;
           for (let j = Object.values(fleet)[i]; j > 0; j--) {
             //Fleet Positioning with Ship no.  Comment out for final version - USE FOR TESTING
-            playerSquares[index].innerHTML = `X${i}`
+            (devMode === true) ? playerSquares[index].innerHTML = `X${i}` :
 
             //Change Background to Denote Ship Placement
             playerSquares[index].style.background = 'RGB(70, 70, 70, 1)'
@@ -228,7 +232,7 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
           shipPlacement = true;
           for (let j = 0; j < Object.values(fleet)[i]; j++) {
             //Fleet Positioning with Ship no.  Comment out for final version - USE FOR TESTING
-            playerSquares[index].innerHTML = `Y${i}`
+            (devMode === true) ? playerSquares[index].innerHTML = `Y${i}` :
 
             //Change Background to Denote Ship Placement
             playerSquares[index].style.background = 'RGB(70, 70, 70, 1)'
