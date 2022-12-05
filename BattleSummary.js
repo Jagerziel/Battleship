@@ -1,9 +1,11 @@
+//Set Variables
 const button_homePage = document.querySelector('#button')
 
 //Turn grid into nodelist for insertion of statistics
 const summaryGrid = document.querySelector('#statGrid')
 const summarySquares = summaryGrid.children
 
+//Set Static Values in Grid
 summarySquares[0].innerHTML = "Player"
 summarySquares[2].innerHTML = "Enemy"
 summarySquares[4].innerHTML = "Shots Fired"
@@ -12,9 +14,8 @@ summarySquares[10].innerHTML = "Accuracy"
 summarySquares[13].innerHTML = "Ships Sunk"
 summarySquares[16].innerHTML = "Result"
 
-//Import from "TheBrain"
+//Import from "TheBrain" (Local Storage) and turn string back into object
 let summaryStats = JSON.parse(localStorage.getItem('summaryStats'))
-console.log(summaryStats)
 
 //Declare Variables
 let playerShots = summaryStats.playerShots
@@ -23,12 +24,12 @@ let playerHits = summaryStats.playerHits
 let compHits = summaryStats.compHits
 let playerSunkCount = summaryStats.playerSunkCount
 let computerSunkCount = summaryStats.computerSunkCount
-console.log(playerShots)
-
 
 //Shots Fired
 summarySquares[3].innerHTML = playerShots
 summarySquares[5].innerHTML = compShots
+
+//Hits
 summarySquares[6].innerHTML = playerHits
 summarySquares[8].innerHTML = compHits
 

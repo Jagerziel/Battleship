@@ -11,7 +11,7 @@ const playerSquares = playerBoard.children
 let compAttributes = []
 let playerAttributes = []
 
-//Insert objects into arrays
+//Insert an object with each square's properties into an array for compupter Attributes and player Attributes
 for (let i = 0; i < compSquares.length; i++) {
   compAttributes.push(
     {
@@ -44,7 +44,7 @@ for (let i = 0; i < compSquares.length; i++) {
 */
 
 //Assign variables
-let pos = ""; 
+let pos = ""; //Variable for whether the ship's placement will be vertical or horizontal
 
 //Assign fleet object with keys = "type of ship" and values = "length" 
 let fleet = {
@@ -55,7 +55,7 @@ let fleet = {
   frigate: 2
 }
 
-//Create objects to hold indexes of where the ship is placed (ex. ship can be indexes 76, 77, 78, 79)
+//Create objects to hold the indexes of where the ship is placed (ex. destroyer placed at indexes 76, 77, 78, 79)
 let fleetCompIndexes = {
   airCraftCarrier: [],
   destroyer: [],
@@ -87,7 +87,7 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
     while (shipPlacement === false) {
       let index = Math.floor(Math.random() * 100)
       if (index % 10 - Object.values(fleet)[i] + 1 >= 0) {    
-        //Loop to ensure there will be no overlapping ships
+        //Check potential placement squares to ensure there will be no overlapping ships
         let indexCheck = index
         let freeSpaces = 0
         for (let k = Object.values(fleet)[i]; k > 0; k--) {
@@ -101,14 +101,15 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
         if (freeSpaces === Object.values(fleet)[i]) {
           shipPlacement = true;
           for (let j = Object.values(fleet)[i]; j > 0; j--) {
+            //Fleet Positioning with Ship no.  Comment out for final version - USE FOR TESTING
             compSquares[index].innerHTML = `X${i}`
 
-            //Update Attributes
+            //Update Attributes for each square where the ship is placed
             compAttributes[index].noShip = false
             compAttributes[index].shipID = Object.keys(fleet)[i]
             compAttributes[index].shipLength = Object.values(fleet)[i]
             
-            //Push Fleet Indexes
+            //Push Fleet Indexes into fleetCompIndexes for each Ship type
             Object.values(fleetCompIndexes)[i].push(index)
 
             //Iterate Index
@@ -123,7 +124,7 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
     while (shipPlacement === false) {
       let index = Math.floor(Math.random() * 100)
       if (index + (Object.values(fleet)[i] * 10) - 10 < 100) {
-        //Loop to ensure there will be no overlapping ships
+        //Check potential placement squares to ensure there will be no overlapping ships
         let indexCheck = index
         let freeSpaces = 0
         for (let k = Object.values(fleet)[i]; k > 0; k--) {
@@ -137,14 +138,15 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
         if (freeSpaces === Object.values(fleet)[i]) {
           shipPlacement = true;
           for (let j = 0; j < Object.values(fleet)[i]; j++) {
+            //Fleet Positioning with Ship no.  Comment out for final version - USE FOR TESTING
             compSquares[index].innerHTML = `Y${i}`
             
-            //Update Attributes
+            //Update Attributes for each square where the ship is placed
             compAttributes[index].noShip = false
             compAttributes[index].shipID = Object.keys(fleet)[i]
             compAttributes[index].shipLength = Object.values(fleet)[i]
                         
-            //Push Fleet Indexes
+            //Push Fleet Indexes into fleetCompIndexes for each Ship type
             Object.values(fleetCompIndexes)[i].push(index)
 
             //Iterate Index
@@ -172,7 +174,7 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
     while (shipPlacement === false) {
       let index = Math.floor(Math.random() * 100)
       if (index % 10 - Object.values(fleet)[i] + 1 >= 0) {
-        //Loop to ensure there will be no overlapping ships
+        //Check potential placement squares to ensure there will be no overlapping ships
         let indexCheck = index
         let freeSpaces = 0
         for (let k = Object.values(fleet)[i]; k > 0; k--) {
@@ -186,15 +188,18 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
         if (freeSpaces === Object.values(fleet)[i]) {
           shipPlacement = true;
           for (let j = Object.values(fleet)[i]; j > 0; j--) {
+            //Fleet Positioning with Ship no.  Comment out for final version - USE FOR TESTING
             playerSquares[index].innerHTML = `X${i}`
+
+            //Change Background to Denote Ship Placement
             playerSquares[index].style.background = 'RGB(70, 70, 70, 1)'
             
-            //Update Attributes
+            //Update Attributes for each square where the ship is placed
             playerAttributes[index].noShip = false
             playerAttributes[index].shipID = Object.keys(fleet)[i]
             playerAttributes[index].shipLength = Object.values(fleet)[i]
                         
-            //Push Fleet Indexes
+            //Push Fleet Indexes into fleetCompIndexes for each Ship type
             Object.values(fleetPlayerIndexes)[i].push(index)
 
             //Iterate Index
@@ -209,7 +214,7 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
     while (shipPlacement === false) {
       let index = Math.floor(Math.random() * 100)
       if (index + (Object.values(fleet)[i] * 10) - 10 < 100) {
-        //Loop to ensure there will be no overlapping ships
+        //Check potential placement squares to ensure there will be no overlapping ships
         let indexCheck = index
         let freeSpaces = 0
         for (let k = Object.values(fleet)[i]; k > 0; k--) {
@@ -223,15 +228,18 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
         if (freeSpaces === Object.values(fleet)[i]) {
           shipPlacement = true;
           for (let j = 0; j < Object.values(fleet)[i]; j++) {
+            //Fleet Positioning with Ship no.  Comment out for final version - USE FOR TESTING
             playerSquares[index].innerHTML = `Y${i}`
+
+            //Change Background to Denote Ship Placement
             playerSquares[index].style.background = 'RGB(70, 70, 70, 1)'
             
-            //Update Attributes
+            //Update Attributes for each square where the ship is placed
             playerAttributes[index].noShip = false
             playerAttributes[index].shipID = Object.keys(fleet)[i]
             playerAttributes[index].shipLength = Object.values(fleet)[i]
                         
-            //Push Fleet Indexes
+            //Push Fleet Indexes into fleetCompIndexes for each Ship type
             Object.values(fleetPlayerIndexes)[i].push(index)
 
             //Iterate Index
@@ -255,8 +263,8 @@ let compShots = 0 //total comp shots
 let compHits = 0 //total comp hits
 let playerSunkCount = 0 //amt of comp ships sunk by player
 let computerSunkCount = 0 //amt of player ships sunk by comp
-let compHit = false //Used for AI
-let compLastIndex; //Used for AI
+let compHit = false //Used for computer AI
+let compLastIndex; //Used for computer AI 
 let endGame = false //Used to end Game
 let turnCountTest = 0 //Turn Count for Console Logs 
 
@@ -274,29 +282,29 @@ for (let i = compIndexArray.length-1; i >= 0; i--) {
   compIndexArray[i] = compIndexArray[a];
   compIndexArray[a] = b;
 }
+
 //Set Variable for beginning iteration through compIndexArray
 let compRollIterator = 0 
 
-
-
-//Choosing who goes first
+//Choosing who goes first - Req's Build Out and Timing to Show Properly
 if (Math.random() > 0.5) {
   playerTurn = true
 }
 
-
 //Function for Player Turn
 const battleAttacks = (idx) => {
+  //Ensures 2 turns (player + comp) are taken per every click an enemy square
   for (let turn = 0; turn < 2; turn++) {
     if (playerTurn === true){
       turnCountTest++
         if (compAttributes[idx].noShip === true) {
+          //Log Attack, Change Square Background, Update Stats, and Console Log
           compAttributes[idx].shipMiss = true
-          //Change Background and Update Stats
           compSquares[idx].style.background = 'RGB(0, 0, 0, 0)'
           playerShots++
           console.log(`${turnCountTest}) Player Attacks Index ${idx} and misses!`)
         } else {
+          //Log Attack, and Console Log
           compAttributes[idx].shipHit = true
           console.log(`${turnCountTest}) Player Attacks Index ${idx} and hits!`)
           //Applies a hit count to all indexes of hit ship
@@ -307,13 +315,13 @@ const battleAttacks = (idx) => {
               compAttributes[fleetCompIndexes[shipType][i]].shipSunk = true
             }
           }
-          //Iterate Sunk Ship Count
+          //Iterate Sunk Ship Count, and Console Log
           if (compAttributes[idx].shipHitCount === compAttributes[idx].shipLength) {
             playerSunkCount++
             console.log(`Computer Ship Sunk!`)
           }
             
-          //Change Background and Update Stats
+          //Change Square Background, and Update Stats
           compSquares[idx].style.background = 'RGB(255, 0, 0, 1)'
           playerShots++
           playerHits++  
@@ -331,58 +339,69 @@ const battleAttacks = (idx) => {
         //Computer's Turn
         
         //Computer AI: Determine Indexes to Target Next
-        let newHitArray = []
-        let surroundingSquares = [-1, 1, -10, 10]
+        let newHitArray = [] //Holds "Next Attack" Indexes
+        let surroundingSquares = [-1, 1, -10, 10] //Left, Right, Up, Down Checks
         for (i = 0; i < surroundingSquares.length; i++) {
           if (compLastIndex + surroundingSquares[i] >= 0 && //not off board to the left or top
           compLastIndex + surroundingSquares[i] <= 99 //not off board to the bottom
           ) {
-            if (i === 0 || i === 1) {
+            if (i === 0 || i === 1) { //additional check for horizontal AI to capture valid "next target" squares
               if (compLastIndex % 10 + surroundingSquares[i] <= 9) { //not off board to the right
                 if (playerAttributes[compLastIndex + surroundingSquares[i]].shipHit === false && playerAttributes[compLastIndex + surroundingSquares[i]].shipMiss === false) {
+                  //Push "next target" into newHitArray for Horizontal checks
                   newHitArray.push(compLastIndex + surroundingSquares[i])
                 }
               }
             } else if (playerAttributes[compLastIndex + surroundingSquares[i]].shipHit === false && playerAttributes[compLastIndex + surroundingSquares[i]].shipMiss === false) {
+              //Push "next target" into newHitArray for Vertical checks
               newHitArray.push(compLastIndex + surroundingSquares[i])
             }
           }
         }
         //Console Log AI Activation
         if (newHitArray.length > 0) {
+          //Console Log that the AI is activated when there has been a hit on the previous turn
           console.log(`${turnCountTest}) AI Activated: Looking in array ${newHitArray} for next target!`)
         }
-        //Computer AI: Target Indexes Randomly that are stored in Array
+        //Computer AI: Target Indexes that are stored in Array (indexes were shuffled at start of game)
         if (newHitArray.length > 0 && playerAttributes[compLastIndex].shipSunk === false) {
           let attackAgainIndex = newHitArray[Math.floor(Math.random() * newHitArray.length)]
 
-          //remove next try from compIndexArray
+          //remove next try from compIndexArray - this is to avoid double-attacking of squares
           compIndexArray.splice(compIndexArray.indexOf(attackAgainIndex),1)
 
           //Comp Attacks One of the free Index Spaces
           if (playerAttributes[attackAgainIndex].noShip === true) {
+            //Log Attack, Change Square Background, and Update Stats
             playerAttributes[attackAgainIndex].shipMiss = true
             compShots++
             playerSquares[attackAgainIndex].style.background = 'RGB(0, 0, 0, 0)'
             if (newHitArray.length === 1) {
-              compHit = false
+              //Log Attack, Update Attack Again Index, and Console Log
+              compHit = false //Set to false because there will be no more valid "next target" indexes - return to random targeting
               compLastIndex = attackAgainIndex
               console.log(`AI Deactivated - Out of Range!`)
             } else {
+              //Update Attack Again Index - continue targeting squares for next - target.
+              //NOTE: Attack Again Index not set here so AI circles around last hit square until successful hit or no available options
               compHit = true
             }
           } else {
+            //Log Attack, and Update Stats
             playerAttributes[attackAgainIndex].shipHit = true
             compShots++
             compHits++
             if (newHitArray.length > 0) {
+              //Log Attack, and Set Comp Attack Index to current square (AI targets new surrounding indexes)
               compHit = true
               compLastIndex = attackAgainIndex
             } else {
-              compHit = false
+              //Log Attack, Set Comp Attack Index, and Console Log
+              compHit = false //Comp will target random square next turn
               compLastIndex = attackAgainIndex
               console.log(`AI Deactivated - Out of Range!`)
             }
+            //Console Log turn result and type of ship that was hit
             console.log(`${turnCountTest}) Computer hit index ${attackAgainIndex}, properties: ${playerAttributes[attackAgainIndex].shipID}`)
             //Applies a hit count to all indexes of hit ship
             for (let i = 0; i < playerAttributes[attackAgainIndex].shipLength; i++) {
@@ -392,40 +411,42 @@ const battleAttacks = (idx) => {
                 playerAttributes[fleetPlayerIndexes[shipType][i]].shipSunk = true
               }
             }
-            //Iterate Sunk Ship Count
+            //Iterate Sunk Ship Count, Log Attack, and Console Log
             if (playerAttributes[attackAgainIndex].shipHitCount === playerAttributes[attackAgainIndex].shipLength) {
               computerSunkCount++
-              compHit = false
+              compHit = false //Deactivate AI since ship is sunk
               compLastIndex = attackAgainIndex
               console.log(`AI Deactivated - Ship Sunk!`)
             }
   
-            //Change Background and Update Stats
+            //Change Background
             playerSquares[attackAgainIndex].style.background = 'RGB(255, 0, 0, 1)'
             
-            //FIX THIS CODE AND CREATE FUNCTION!!!!!!!!! 
+            //Execute End Game if 5 Ships Sunk
             if (computerSunkCount === 5) {
               endGame = true
               return true
             }
           } 
+          //End Turn
           playerTurn = true
         }
       } else {
         //Initialize Computer Random Move
         let indexOfArray = compIndexArray[compRollIterator]
         compLastIndex = indexOfArray
-
+        
         if (playerAttributes[indexOfArray].noShip === true) {
+          //Log Attack, Change Square Background, Update Stats, and Console Log
           playerAttributes[indexOfArray].shipMiss = true
           compHit = false
           playerSquares[indexOfArray].style.background = 'RGB(0, 0, 0, 0)'
           compShots++
           console.log(`${turnCountTest}) Computer attacks index ${indexOfArray} and misses shot`)
         } else {
+          //Log Attack, and Console Log
           playerAttributes[indexOfArray].shipHit = true
           compHit = true
-
           console.log(`${turnCountTest}) Computer hit index ${indexOfArray}, properties: ${playerAttributes[indexOfArray].shipID}`)
           //Applies a hit count to all indexes of hit ship
           for (let i = 0; i < playerAttributes[indexOfArray].shipLength; i++) {
@@ -435,13 +456,13 @@ const battleAttacks = (idx) => {
               playerAttributes[fleetPlayerIndexes[shipType][i]].shipSunk = true
             }
           }
-          //Iterate Sunk Ship Count
+          //Iterate Sunk Ship Count, and Console Log
           if (playerAttributes[indexOfArray].shipHitCount === playerAttributes[indexOfArray].shipLength) {
             computerSunkCount++
             compHit = false
           }
 
-          //Change Background and Update Stats
+          //Change Square Background, and Update Stats
           playerSquares[indexOfArray].style.background = 'RGB(255, 0, 0, 1)'
           compShots++
           compHits++
@@ -453,7 +474,7 @@ const battleAttacks = (idx) => {
           }
         }
 
-        //End Turn
+        //End Turn and Increate compRollIterator (Move to next index for random attack)
         playerTurn = true
         compRollIterator++
       }
@@ -467,7 +488,7 @@ const battleAttacks = (idx) => {
 
 const endGameFunc = (bool) => {
   if (bool === true) {
-    //Exporting
+    //Exporting Variables for Battle Summary
     let summaryStats = {}
     summaryStats[`playerShots`] = playerShots
     summaryStats[`compShots`] = compShots
@@ -475,8 +496,8 @@ const endGameFunc = (bool) => {
     summaryStats[`compHits`] = compHits
     summaryStats[`playerSunkCount`] = playerSunkCount
     summaryStats[`computerSunkCount`] = computerSunkCount
+    //Store Local Variable Object
     localStorage.setItem('summaryStats', JSON.stringify(summaryStats))
-    console.log(summaryStats)
     //Go to Battle Summary
     location.href="BattleSummary.html"
   }
@@ -487,10 +508,11 @@ const endGameFunc = (bool) => {
 //Event Listener for Player Clicks on Enemy Board
 for (let i = 0; i < playerSquares.length; i++) {
   compSquares[i].addEventListener('click', () => {
+    //Execute Turn (battleAttacks).  Turn will return "true" if game has ended to execute endGameFunc
     endGameFunc(battleAttacks(i));
   }, {once: true})
 }
 
 exit.addEventListener('click', () => {
-  endGameFunc(true)
+  endGameFunc(true) //Ends game and navigates to Battle Summary when exit button clicked
 })
