@@ -158,7 +158,6 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
   }
 }
 
-
 //Player Ship Placement
 for (let i = 0; i < Object.keys(fleet).length; i++) {
   //Randomize ship: vertical or horizontal

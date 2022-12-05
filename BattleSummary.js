@@ -34,8 +34,8 @@ summarySquares[6].innerHTML = playerHits
 summarySquares[8].innerHTML = compHits
 
 //Accuracy
-summarySquares[9].innerHTML = `${Math.round((playerHits / playerShots)*100)}%`
-summarySquares[11].innerHTML = `${Math.round((compHits / compShots)*100)}%`
+summarySquares[9].innerHTML = (playerShots) > 0 ? `${Math.round((playerHits / playerShots)*100)}%` : `0%`
+summarySquares[11].innerHTML = (compShots) > 0 ? `${Math.round((compHits / compShots)*100)}%` : `0%`
 
 //Ships Sunk
 summarySquares[12].innerHTML = playerSunkCount

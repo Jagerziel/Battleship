@@ -2,11 +2,11 @@
 
 ## Description
 Battleship is a game of naval dominance.  Each player starts with 5 ships and the rules are simple: 
-- Five ships are placed randomly on the board for each player
+- Five ships of varying lengths are placed randomly on the board for each player
 - Each player takes turns targeting a sqaure in the hopes of hitting an enemy ship.  The goal is to sink all enemy ships 
 - Once a player sinks all 5 ships, the game ends and that player is declared the winner!
 
-GitHub Pages Link: **[Battleship](https://jagerziel.github.io/Battleship/)**
+GitHub Pages Link: 3**[Battleship](https://jagerziel.github.io/Battleship/)**
 
 
 ## Screenshots (General Use)
@@ -53,7 +53,7 @@ Advanced:
 - Enhance computer AI
 - Set multiple computer AI difficulty levels
 - Add animation
-- Add ability for player vs player mode
+- Add player vs player mode
 
 ## MVP Goals
 - Three pages: Starting Page, Battle, Battle Summary
