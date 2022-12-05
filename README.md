@@ -6,6 +6,9 @@ Battleship is a game of naval dominance.  Each player starts with 5 ships and th
 - Each player takes turns targeting a sqaure in the hopes of hitting an enemy ship.  The goal is to sink all enemy ships 
 - Once a player sinks all 5 ships, the game ends and that player is declared the winner!
 
+GitHub Pages Link: **[Battleship](https://jagerziel.github.io/Battleship/)**
+
+
 ## Screenshots (General Use)
 ![Battleship Homepage](./README%20Screenshots/Homepage_Screenshot_01.png "Battleship Home Page")
 ![Battle](./README%20Screenshots/Battle_Screenshot_01.png "Battle!")
