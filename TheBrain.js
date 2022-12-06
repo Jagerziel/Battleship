@@ -106,7 +106,7 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
           shipPlacement = true;
           for (let j = Object.values(fleet)[i]; j > 0; j--) {
             //Fleet Positioning with Ship no.  Comment out for final version - USE FOR TESTING
-            (devMode === true) ? (compSquares[index].innerHTML = `X${i}` ) : 
+            if (devMode === true) { compSquares[index].innerHTML = `X${i}` }
 
             //Update Attributes for each square where the ship is placed
             compAttributes[index].noShip = false
@@ -143,7 +143,7 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
           shipPlacement = true;
           for (let j = 0; j < Object.values(fleet)[i]; j++) {
             //Fleet Positioning with Ship no.  Comment out for final version - USE FOR TESTING
-            (devMode === true) ? compSquares[index].innerHTML = `Y${i}` :
+            if (devMode === true) { compSquares[index].innerHTML = `Y${i}` }
             
             //Update Attributes for each square where the ship is placed
             compAttributes[index].noShip = false
@@ -192,7 +192,7 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
           shipPlacement = true;
           for (let j = Object.values(fleet)[i]; j > 0; j--) {
             //Fleet Positioning with Ship no.  Comment out for final version - USE FOR TESTING
-            (devMode === true) ? playerSquares[index].innerHTML = `X${i}` :
+            if (devMode === true) { playerSquares[index].innerHTML = `X${i}` }
 
             //Change Background to Denote Ship Placement
             playerSquares[index].style.background = 'RGB(70, 70, 70, 1)'
@@ -232,7 +232,7 @@ for (let i = 0; i < Object.keys(fleet).length; i++) {
           shipPlacement = true;
           for (let j = 0; j < Object.values(fleet)[i]; j++) {
             //Fleet Positioning with Ship no.  Comment out for final version - USE FOR TESTING
-            (devMode === true) ? playerSquares[index].innerHTML = `Y${i}` :
+            if (devMode === true) { playerSquares[index].innerHTML = `Y${i}` }
 
             //Change Background to Denote Ship Placement
             playerSquares[index].style.background = 'RGB(70, 70, 70, 1)'

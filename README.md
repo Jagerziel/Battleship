@@ -18,7 +18,7 @@ GitHub Pages Link: **[Battleship](https://jagerziel.github.io/Battleship/)**
 ![Gameplay Screenshot DEV](./README%20Screenshots/Battle_Screenshot_DEV_02.png "Gameplay Screenshot (Developer)")
 *Note: Developer Mode can be accessed in the second line of TheBrain.js.  To activate, change devMode value to true.*
 ```js
-2   let devMode = true
+let devMode = true
 ```
 
 
