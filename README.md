@@ -6,7 +6,7 @@ Battleship is a game of naval dominance.  Each player starts with 5 ships and th
 - Each player takes turns targeting a sqaure in the hopes of hitting an enemy ship.  The goal is to sink all enemy ships 
 - Once a player sinks all 5 ships, the game ends and that player is declared the winner!
 
-GitHub Pages Link: 3**[Battleship](https://jagerziel.github.io/Battleship/)**
+GitHub Pages Link: **[Battleship](https://jagerziel.github.io/Battleship/)**
 
 
 ## Screenshots (General Use)
@@ -16,6 +16,11 @@ GitHub Pages Link: 3**[Battleship](https://jagerziel.github.io/Battleship/)**
 
 ## Screenshots (Developer)
 ![Gameplay Screenshot DEV](./README%20Screenshots/Battle_Screenshot_DEV_02.png "Gameplay Screenshot (Developer)")
+*Note: Developer Mode can be accessed in the second line of TheBrain.js.  To activate, change devMode value to true.*
+```js
+2   let devMode = true
+```
+
 
 ## Technologies Used
 Front End: HTML, CSS, Javascript
