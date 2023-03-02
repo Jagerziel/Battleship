@@ -45,7 +45,7 @@ h1 {
 }
 
 #gridTitle {
-  border: 2px red solid;
+  /* border: 2px red solid; */
   margin: 0;
   text-align: center;
   color: white;
@@ -53,7 +53,7 @@ h1 {
 }
 
 #gridTitle2 {
-  border: 2px red solid;
+  /* border: 2px red solid; */
   margin: 0;
   text-align: center;
   color: white;
@@ -61,7 +61,7 @@ h1 {
 }
 
 #container1 {
-  border: 2px red solid;
+  /* border: 2px red solid; */
   display: flex;
   justify-content: space-evenly;
   /* margin-top: 12%; */
@@ -69,13 +69,13 @@ h1 {
 }
 
 #container2 {
-  border: 2px red solid;
+  /* border: 2px red solid; */
   display:flex;
   flex-direction: column;
 }
 
 #container3 {
-  border: 2px red solid;
+  /* border: 2px red solid; */
   display:flex;
   flex-direction: column;
 }
@@ -119,8 +119,10 @@ h1 {
 .BattleLogContainer {
   border: 2px solid red;
   /* width: 100%; */
-  padding: 0px 20px 20px 20px;
+  padding: 0px 10% 20px 10%;
   flex-grow: 1;
+  display: flex;
+  flex-flow: column;
 }
 
 #BattleLogHeader {
@@ -133,5 +135,8 @@ h1 {
 
 .BattleLogContainer2 {
   border: 2px solid red;
-  height: 100%;
+  flex-grow: 1;
+  background-color: rgba(255, 255, 255, .65);
+  border-radius: 15px;
+  padding: 15px;
 }
