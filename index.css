@@ -1,4 +1,8 @@
-body {
+* {
+  margin: 0;
+}
+
+.BodyIdx {
   /* border: solid red 2px; */
   background: url(./Images/Battleship\ -\ Wallpaper\ front\ page\ 1.jpg) no-repeat center center fixed;
   background-size: cover;
@@ -11,12 +15,13 @@ h1 {
   color: white;
   font-size: 80px;
   position: relative;
-  padding: 0px 40px 0px 20px;
+  padding: 5% 5% 5% 20px;
 }
+
 
 #button_home {
   background-color: #27178d;
-  position: relative;
+  position: fixed;
   float: right;
   font-size: 27px;
   color: white;

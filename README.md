@@ -1,4 +1,4 @@
-# Battleship
+# Battleship (Desktop Only)
 
 ## Description
 Battleship is a game of naval dominance.  Each player starts with 5 ships and the rules are simple: 
