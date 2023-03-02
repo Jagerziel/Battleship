@@ -1,15 +1,19 @@
-body {
+.BattleBody {
+  /* border: 2px solid green; */
+  margin: 0;
+  height: 100%;
   background: url(./Images/Battleship\ -\ Wallpaper\ front\ page\ 2.jpg) no-repeat center center fixed;
   background-size: cover;
   background-color: black;
+  min-height: 100vh;
 }
 
 .Header {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   display: flex;
   align-items:initial;
   justify-content: space-between;
-  padding: 5px;
+  padding: 25px;
 }
 
 h1 {
@@ -97,3 +101,12 @@ h1 {
   color: black;
 }
 
+.horizontal2:hover {
+  cursor: crosshair;
+}
+
+.BattleLogContainer {
+  border: 2px solid red;
+  border-collapse: collapse;
+  /* min-height: 100%; */
+}
