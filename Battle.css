@@ -1,3 +1,7 @@
+/* .BattleHTML {
+  border: 2px solid red;
+} */
+
 .BattleBody {
   /* border: 2px solid green; */
   margin: 0;
@@ -6,6 +10,9 @@
   background-size: cover;
   background-color: black;
   min-height: 100vh;
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
 }
 
 .Header {
@@ -31,6 +38,10 @@ h1 {
   height: 35px;
   top: 3%;
   right: 3%;
+}
+
+#button1_exit:hover {
+  cursor: pointer;
 }
 
 #gridTitle {
@@ -107,6 +118,20 @@ h1 {
 
 .BattleLogContainer {
   border: 2px solid red;
-  border-collapse: collapse;
-  /* min-height: 100%; */
+  /* width: 100%; */
+  padding: 0px 20px 20px 20px;
+  flex-grow: 1;
+}
+
+#BattleLogHeader {
+  border: 2px red solid;
+  margin-bottom: 0px;
+  text-align: center;
+  color: white;
+  font-size: 30px;
+}
+
+.BattleLogContainer2 {
+  border: 2px solid red;
+  height: 100%;
 }
