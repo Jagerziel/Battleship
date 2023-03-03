@@ -83,7 +83,6 @@ h1 {
 .playerBoard {
   display: grid;
   grid-template: repeat(10, 0fr)/repeat(10, 0fr);
-  
 }
 
 .horizontal {
@@ -91,9 +90,11 @@ h1 {
   height: 40px;
   width: 40px;
   background-color: rgba(255, 255, 255, .65);
-  font-size: 30px;
-  text-align: center;
-  color: black;
+  color: white;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .compBoard {
@@ -107,9 +108,11 @@ h1 {
   height: 40px;
   width: 40px;
   background-color: rgba(255, 255, 255, .65);
-  font-size: 30px;
-  text-align: center;
+  font-size: 22px;
   color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .horizontal2:hover {
