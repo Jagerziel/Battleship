@@ -48,11 +48,8 @@ Enhancements that are on the radar for future deployment:
 Basic:
 - Add button to refresh ship randomization
 - Highlight the 'Last Targeted' square for player and computer
-- Add targeting icon when hovering over valid attack squares
 - Enhance imaging for ships, hits, misses
 - Add sound effects / music
-- Add messages for when a ship is sunk (currently only in console)
-- Add console to show battle summary similar to existing Console Log
 - Add 'Play Again' button to Battle Summary page
 
 Advanced:
@@ -61,6 +58,13 @@ Advanced:
 - Set multiple computer AI difficulty levels
 - Add animation
 - Add player vs player mode
+
+## Future Features Implemented Since First Build
+
+Basic
+- Add targeting icon when hovering over valid attack squares
+- Add messages for when a ship is sunk (currently only in console)
+- Add console to show battle summary similar to existing Console Log
 
 ## MVP Goals
 - Three pages: Starting Page, Battle, Battle Summary
