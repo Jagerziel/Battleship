@@ -418,6 +418,8 @@ const battleAttacks = (idx) => {
             playerAttributes[attackAgainIndex].shipMiss = true
             compShots++
             playerSquares[attackAgainIndex].style.background = 'RGB(0, 0, 0, 0)'
+            addLog(`${turnCountTest}) Computer attacks and misses.`, "computer");
+            console.log(`${turnCountTest}) Computer attacks index ${attackAgainIndex} and misses shot`)
             if (newHitArray.length === 1) {
               //Log Attack, Update Attack Again Index, and Console Log
               compHit = false //Set to false because there will be no more valid "next target" indexes - return to random targeting
@@ -443,7 +445,6 @@ const battleAttacks = (idx) => {
               compLastIndex = attackAgainIndex
               console.log(`AI Deactivated - Out of Range!`)
             }
-            //Log turn result and type of ship that was hit
             addLog(`${turnCountTest}) Computer attacks and hits the player's ${playerAttributes[attackAgainIndex].shipID}!`, "computerHit");
             console.log(`${turnCountTest}) Computer hit index ${attackAgainIndex}, properties: ${playerAttributes[attackAgainIndex].shipID}`)
             //Applies a hit count to all indexes of hit ship
