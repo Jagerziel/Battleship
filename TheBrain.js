@@ -271,18 +271,33 @@ let compLastIndex; //Used for computer AI
 let endGame = false //Used to end Game
 let turnCountTest = 0 //Turn Count for Console Logs 
 
-function addLog (log) {
+//Function for Displaying Battle Log
+function addLog (log, setId = false) {
   let tag = document.createElement("p");
+  tag.setAttribute("class", "log")
+  if (setId === "firstLog") {
+    tag.setAttribute("id", "firstLog")
+  } else if (setId === "computer") {
+    tag.setAttribute("id", "computer")
+  } else if (setId === "player") {
+    tag.setAttribute("id", "player")
+  }
   let text = document.createTextNode(log);
   tag.appendChild(text);
-  let element = document.querySelector(".BattleLogContainer2"); //CHECK AND CHANGE TO ID
+  let element = document.querySelector(".BattleLogContainer3"); //CHECK AND CHANGE TO ID
   element.appendChild(tag);
 }
 
-addLog("This is a test");
+addLog("This is a test", "firstLog");
+addLog("This is another test", "computer");
+addLog("This is another test", "player");
 addLog("This is another test");
 addLog("This is another test");
-addLog("This is another test");
+// addLog("This is another test");
+// addLog("This is another test");
+// addLog("This is another test");
+// addLog("This is another test");
+
 
 
 
