@@ -28,6 +28,9 @@ h1 {
   height: 70px;
   border-radius: 20px;
 }
+#button:hover {
+  cursor: pointer;
+}
 
 .button {
   /* border: 2px solid green; */
