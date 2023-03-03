@@ -117,7 +117,7 @@ h1 {
 }
 
 .BattleLogContainer {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   padding: 0px 10% 25px 10%;
   flex-grow: 1;
   display: flex;
@@ -136,26 +136,36 @@ h1 {
   border: 3px solid black;
   flex-grow: 1;
   flex-basis: 0;
-  background-color: rgba(255, 255, 255, .65);
+  background-color: rgba(255, 255, 255, .75);
   border-radius: 15px;
   padding: 15px;
   overflow-y: auto;
 }
 
 .BattleLogContainer3 {
-  border: 2px solid red;
+  /* border: 2px solid red; */
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .log {
   color: black;
-  font-size: 1.2em;
+  font-size: 0.9em;
   margin: 0;
-  padding-top: 5px;
+  padding-bottom: 3px;
 }
 
 #firstLog {
   color: black;
-  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+#turn {
+  color: black;
+  font-weight: 600;
+  text-decoration: underline;
+  font-size: 1.2em;
+  padding-bottom: 0px;
 }
 
 #computer {
@@ -167,19 +177,23 @@ h1 {
 }
 
 #computerHit {
-  color: red;
+  color: rgb(0, 0, 0);
+  font-weight: 600;
 }
 
 #playerHit {
-  color: red;
+  color: rgb(0, 0, 0);
+  font-weight: 600;
 }
 
 #computerSunk {
   color: red;
   font-weight: 600;
+  font-size: 1em;
 }
 
 #playerSunk {
-  color: red;
+  color: rgb(41, 30, 136);
   font-weight: 600;
+  font-size: 1em;
 }

@@ -280,6 +280,8 @@ function addLog (log, setId = false) {
   // Conditional ID Attribute
   if (setId === "firstLog") {
     paragraph.setAttribute("id", "firstLog")
+  } else if (setId === "turn") {
+    paragraph.setAttribute("id", "turn")
   } else if (setId === "computer") {
     paragraph.setAttribute("id", "computer")
   } else if (setId === "player") {
@@ -357,7 +359,8 @@ const battleAttacks = (idx) => {
           //Iterate Sunk Ship Count, and Console Log
           if (compAttributes[idx].shipHitCount === compAttributes[idx].shipLength) {
             playerSunkCount++
-            console.log(`Computer Ship Sunk!`)
+            addLog(`Enemy's ${compAttributes[idx].shipID} sunk!`, "playerSunk");
+            console.log(`Computer's ${compAttributes[idx].shipID} Sunk!`)
           }
             
           //Change Square Background, and Update Stats
@@ -440,7 +443,8 @@ const battleAttacks = (idx) => {
               compLastIndex = attackAgainIndex
               console.log(`AI Deactivated - Out of Range!`)
             }
-            //Console Log turn result and type of ship that was hit
+            //Log turn result and type of ship that was hit
+            addLog(`${turnCountTest}) Computer attacks and hits the player's ${playerAttributes[attackAgainIndex].shipID}!`, "computerHit");
             console.log(`${turnCountTest}) Computer hit index ${attackAgainIndex}, properties: ${playerAttributes[attackAgainIndex].shipID}`)
             //Applies a hit count to all indexes of hit ship
             for (let i = 0; i < playerAttributes[attackAgainIndex].shipLength; i++) {
@@ -455,6 +459,7 @@ const battleAttacks = (idx) => {
               computerSunkCount++
               compHit = false //Deactivate AI since ship is sunk
               compLastIndex = attackAgainIndex
+              addLog(`Computer sinks the player's ${playerAttributes[attackAgainIndex].shipID}!`, "computerSunk");
               console.log(`AI Deactivated - Ship Sunk!`)
             }
   
@@ -469,6 +474,7 @@ const battleAttacks = (idx) => {
           } 
           //End Turn
           playerTurn = true
+          addLog(`Round ${turnCountTest}`, "turn");
         }
       } else {
         //Initialize Computer Random Move
@@ -481,11 +487,13 @@ const battleAttacks = (idx) => {
           compHit = false
           playerSquares[indexOfArray].style.background = 'RGB(0, 0, 0, 0)'
           compShots++
+          addLog(`${turnCountTest}) Computer attacks and misses.`, "computer");
           console.log(`${turnCountTest}) Computer attacks index ${indexOfArray} and misses shot`)
         } else {
           //Log Attack, and Console Log
           playerAttributes[indexOfArray].shipHit = true
           compHit = true
+          addLog(`${turnCountTest}) Computer attacks and hits the player's ${playerAttributes[indexOfArray].shipID}!`, "computerHit");
           console.log(`${turnCountTest}) Computer hit index ${indexOfArray}, properties: ${playerAttributes[indexOfArray].shipID}`)
           //Applies a hit count to all indexes of hit ship
           for (let i = 0; i < playerAttributes[indexOfArray].shipLength; i++) {
@@ -499,6 +507,8 @@ const battleAttacks = (idx) => {
           if (playerAttributes[indexOfArray].shipHitCount === playerAttributes[indexOfArray].shipLength) {
             computerSunkCount++
             compHit = false
+            addLog(`Computer sinks the player's ${playerAttributes[indexOfArray].shipID}!`, "computerSunk");
+            console.log(`Lucky Shot - Ship Sunk!`)
           }
 
           //Change Square Background, and Update Stats
@@ -516,6 +526,7 @@ const battleAttacks = (idx) => {
         //End Turn and Increate compRollIterator (Move to next index for random attack)
         playerTurn = true
         compRollIterator++
+        addLog(`Round ${turnCountTest}`, "turn");
       }
   }
 }
