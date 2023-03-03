@@ -154,14 +154,32 @@ h1 {
 }
 
 #firstLog {
-  color: rgb(94, 62, 2);
+  color: black;
   padding-top: 0px;
 }
 
 #computer {
-  color: purple;
+  color: rgb(57, 57, 57);
 }
 
 #player {
-  color: blue;
+  color: rgb(57, 57, 57);
+}
+
+#computerHit {
+  color: red;
+}
+
+#playerHit {
+  color: red;
+}
+
+#computerSunk {
+  color: red;
+  font-weight: 600;
+}
+
+#playerSunk {
+  color: red;
+  font-weight: 600;
 }

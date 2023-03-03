@@ -284,6 +284,14 @@ function addLog (log, setId = false) {
     paragraph.setAttribute("id", "computer")
   } else if (setId === "player") {
     paragraph.setAttribute("id", "player")
+  } else if (setId === "computerHit") {
+    paragraph.setAttribute("id", "computerHit")
+  } else if (setId === "playerHit") {
+    paragraph.setAttribute("id", "playerHit")
+  } else if (setId === "computerSunk") {
+    paragraph.setAttribute("id", "computerSunk")
+  } else if (setId === "playerSunk") {
+    paragraph.setAttribute("id", "playerSunk")
   }
   // Add and Append Text
   let text = document.createTextNode(log);
@@ -292,19 +300,6 @@ function addLog (log, setId = false) {
   let element = document.querySelector(".BattleLogContainer3");
   element.appendChild(paragraph);
 }
-
-addLog("This is a test", "firstLog");
-addLog("This is another test", "computer");
-addLog("This is another test", "player");
-addLog("This is another test");
-addLog("This is another test");
-addLog("This is another test");
-addLog("This is another test");
-addLog("This is another test");
-addLog("This is another test");
-
-
-
 
 //Set Computer's Available Moves
 let compIndexArray = []
@@ -329,6 +324,10 @@ if (Math.random() > 0.5) {
   playerTurn = true
 }
 
+addLog("The enemy is approaching.  We must defend our fleet.  Attack!", "firstLog");
+// addLog("This is another test", "computer");
+// addLog("This is another test", "player");
+
 //Function for Player Turn
 const battleAttacks = (idx) => {
   //Ensures 2 turns (player + comp) are taken per every click an enemy square
@@ -340,10 +339,12 @@ const battleAttacks = (idx) => {
           compAttributes[idx].shipMiss = true
           compSquares[idx].style.background = 'RGB(0, 0, 0, 0)'
           playerShots++
+          addLog(`${turnCountTest}) Player attacks and misses the enemy ship.`, "player");
           console.log(`${turnCountTest}) Player Attacks Index ${idx} and misses!`)
         } else {
           //Log Attack, and Console Log
           compAttributes[idx].shipHit = true
+          addLog(`${turnCountTest}) Player attacks and hits the enemy ship!`, "playerHit");
           console.log(`${turnCountTest}) Player Attacks Index ${idx} and hits!`)
           //Applies a hit count to all indexes of hit ship
           for (let i = 0; i < compAttributes[idx].shipLength; i++) {
