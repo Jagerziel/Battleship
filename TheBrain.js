@@ -1,5 +1,5 @@
 //Toggle Developer Mode
-let devMode = true
+let devMode = false
 
 //Exit button variable
 const exit = document.querySelector('#button1_exit')
