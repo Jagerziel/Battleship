@@ -408,77 +408,129 @@ const battleAttacks = (idx) => {
         if (newHitArray.length > 0) {
           //Console Log that the AI is activated when there has been a hit on the previous turn
           console.log(`${turnCountTest}) AI Activated: Looking in array ${newHitArray} for next target!`)
-        }
-        //Computer AI: Target Indexes that are stored in Array (indexes were shuffled at start of game)
-        if (newHitArray.length > 0 && playerAttributes[compLastIndex].shipSunk === false) {
-          let attackAgainIndex = newHitArray[Math.floor(Math.random() * newHitArray.length)]
+          //Computer AI: Target Indexes that are stored in Array (indexes were shuffled at start of game)
+          if (newHitArray.length > 0 && playerAttributes[compLastIndex].shipSunk === false) {
+            let attackAgainIndex = newHitArray[Math.floor(Math.random() * newHitArray.length)]
 
-          //remove next try from compIndexArray - this is to avoid double-attacking of squares
-          compIndexArray.splice(compIndexArray.indexOf(attackAgainIndex),1)
+            //remove next try from compIndexArray - this is to avoid double-attacking of squares
+            compIndexArray.splice(compIndexArray.indexOf(attackAgainIndex),1)
 
-          //Comp Attacks One of the free Index Spaces
-          if (playerAttributes[attackAgainIndex].noShip === true) {
-            //Log Attack, Change Square Background, and Update Stats
-            playerAttributes[attackAgainIndex].shipMiss = true
-            compShots++
-            playerSquares[attackAgainIndex].style.background = 'RGB(0, 0, 0, 0)'
-            addLog(`Computer attacks and misses.`, "computer");
-            console.log(`${turnCountTest}) Computer attacks index ${attackAgainIndex} and misses shot`)
-            if (newHitArray.length === 1) {
-              //Log Attack, Update Attack Again Index, and Console Log
-              compHit = false //Set to false because there will be no more valid "next target" indexes - return to random targeting
-              compLastIndex = attackAgainIndex
-              console.log(`AI Deactivated - Out of Range!`)
+            //Comp Attacks One of the free Index Spaces
+            if (playerAttributes[attackAgainIndex].noShip === true) {
+              //Log Attack, Change Square Background, and Update Stats
+              playerAttributes[attackAgainIndex].shipMiss = true
+              compShots++
+              playerSquares[attackAgainIndex].style.background = 'RGB(0, 0, 0, 0)'
+              addLog(`Computer attacks and misses.`, "computer");
+              console.log(`${turnCountTest}) Computer attacks index ${attackAgainIndex} and misses shot`)
+              if (newHitArray.length === 1) {
+                //Log Attack, Update Attack Again Index, and Console Log
+                compHit = false //Set to false because there will be no more valid "next target" indexes - return to random targeting
+                compLastIndex = attackAgainIndex
+                console.log(`AI Deactivated - Out of Range!`)
+              } else {
+                //Update Attack Again Index - continue targeting squares for next - target.
+                //NOTE: Attack Again Index not set here so AI circles around last hit square until successful hit or no available options
+                compHit = true
+              }
             } else {
-              //Update Attack Again Index - continue targeting squares for next - target.
-              //NOTE: Attack Again Index not set here so AI circles around last hit square until successful hit or no available options
-              compHit = true
-            }
-          } else {
-            //Log Attack, and Update Stats
-            playerAttributes[attackAgainIndex].shipHit = true
-            compShots++
-            compHits++
-            if (newHitArray.length > 0) {
-              //Log Attack, and Set Comp Attack Index to current square (AI targets new surrounding indexes)
-              compHit = true
-              compLastIndex = attackAgainIndex
-            } else {
-              //Log Attack, Set Comp Attack Index, and Console Log
-              compHit = false //Comp will target random square next turn
-              compLastIndex = attackAgainIndex
-              console.log(`AI Deactivated - Out of Range!`)
-            }
-            addLog(`Computer attacks and hits the player's ${playerAttributes[attackAgainIndex].shipID}!`, "computerHit");
-            console.log(`${turnCountTest}) Computer hit index ${attackAgainIndex}, properties: ${playerAttributes[attackAgainIndex].shipID}`)
-            //Applies a hit count to all indexes of hit ship
-            for (let i = 0; i < playerAttributes[attackAgainIndex].shipLength; i++) {
-              let shipType = playerAttributes[attackAgainIndex].shipID
-              playerAttributes[fleetPlayerIndexes[shipType][i]].shipHitCount++
+              //Log Attack, and Update Stats
+              playerAttributes[attackAgainIndex].shipHit = true
+              compShots++
+              compHits++
+              if (newHitArray.length > 0) {
+                //Log Attack, and Set Comp Attack Index to current square (AI targets new surrounding indexes)
+                compHit = true
+                compLastIndex = attackAgainIndex
+              } else {
+                //Log Attack, Set Comp Attack Index, and Console Log
+                compHit = false //Comp will target random square next turn
+                compLastIndex = attackAgainIndex
+                console.log(`AI Deactivated - Out of Range!`)
+              }
+              addLog(`Computer attacks and hits the player's ${playerAttributes[attackAgainIndex].shipID}!`, "computerHit");
+              console.log(`${turnCountTest}) Computer hit index ${attackAgainIndex}, properties: ${playerAttributes[attackAgainIndex].shipID}`)
+              //Applies a hit count to all indexes of hit ship
+              for (let i = 0; i < playerAttributes[attackAgainIndex].shipLength; i++) {
+                let shipType = playerAttributes[attackAgainIndex].shipID
+                playerAttributes[fleetPlayerIndexes[shipType][i]].shipHitCount++
+                if (playerAttributes[attackAgainIndex].shipHitCount === playerAttributes[attackAgainIndex].shipLength) {
+                  playerAttributes[fleetPlayerIndexes[shipType][i]].shipSunk = true
+                }
+              }
+              //Iterate Sunk Ship Count, Log Attack, and Console Log
               if (playerAttributes[attackAgainIndex].shipHitCount === playerAttributes[attackAgainIndex].shipLength) {
+                computerSunkCount++
+                compHit = false //Deactivate AI since ship is sunk
+                compLastIndex = attackAgainIndex
+                addLog(`Computer sinks the player's ${playerAttributes[attackAgainIndex].shipID}!`, "computerSunk");
+                console.log(`AI Deactivated - Ship Sunk!`)
+              }
+    
+              //Change Background
+              playerSquares[attackAgainIndex].style.background = 'RGB(255, 0, 0, 1)'
+              
+              //Execute End Game if 5 Ships Sunk
+              if (computerSunkCount === 5) {
+                endGame = true
+                return true
+              }
+            } 
+            //End Turn
+            playerTurn = true
+            addLog(`Round ${turnCountTest}`, "turn");
+          }
+        } else {
+          /*ADDRESSES EDGE CASE WHEREBY SQUARE IS HIT BUT NO NEW SQUARES ARE AVAILABLE FOR NEXT SHOT*/
+          //Initialize Computer Random Move
+          let indexOfArray = compIndexArray[compRollIterator]
+          compLastIndex = indexOfArray
+          
+          if (playerAttributes[indexOfArray].noShip === true) {
+            //Log Attack, Change Square Background, Update Stats, and Console Log
+            playerAttributes[indexOfArray].shipMiss = true
+            compHit = false
+            playerSquares[indexOfArray].style.background = 'RGB(0, 0, 0, 0)'
+            compShots++
+            addLog(`Computer attacks and misses.`, "computer");
+            console.log(`${turnCountTest}) Computer attacks index ${indexOfArray} and misses shot`)
+          } else {
+            //Log Attack, and Console Log
+            playerAttributes[indexOfArray].shipHit = true
+            compHit = true
+            addLog(`Computer attacks and hits the player's ${playerAttributes[indexOfArray].shipID}!`, "computerHit");
+            console.log(`${turnCountTest}) Computer hit index ${indexOfArray}, properties: ${playerAttributes[indexOfArray].shipID}`)
+            //Applies a hit count to all indexes of hit ship
+            for (let i = 0; i < playerAttributes[indexOfArray].shipLength; i++) {
+              let shipType = playerAttributes[indexOfArray].shipID
+              playerAttributes[fleetPlayerIndexes[shipType][i]].shipHitCount++
+              if (playerAttributes[indexOfArray].shipHitCount === playerAttributes[indexOfArray].shipLength) {
                 playerAttributes[fleetPlayerIndexes[shipType][i]].shipSunk = true
               }
             }
-            //Iterate Sunk Ship Count, Log Attack, and Console Log
-            if (playerAttributes[attackAgainIndex].shipHitCount === playerAttributes[attackAgainIndex].shipLength) {
+            //Iterate Sunk Ship Count, and Console Log
+            if (playerAttributes[indexOfArray].shipHitCount === playerAttributes[indexOfArray].shipLength) {
               computerSunkCount++
-              compHit = false //Deactivate AI since ship is sunk
-              compLastIndex = attackAgainIndex
-              addLog(`Computer sinks the player's ${playerAttributes[attackAgainIndex].shipID}!`, "computerSunk");
-              console.log(`AI Deactivated - Ship Sunk!`)
+              compHit = false
+              addLog(`Computer sinks the player's ${playerAttributes[indexOfArray].shipID}!`, "computerSunk");
+              console.log(`Lucky Shot - Ship Sunk!`)
             }
-  
-            //Change Background
-            playerSquares[attackAgainIndex].style.background = 'RGB(255, 0, 0, 1)'
+
+            //Change Square Background, and Update Stats
+            playerSquares[indexOfArray].style.background = 'RGB(255, 0, 0, 1)'
+            compShots++
+            compHits++
             
             //Execute End Game if 5 Ships Sunk
             if (computerSunkCount === 5) {
               endGame = true
               return true
             }
-          } 
-          //End Turn
+          }
+
+          //End Turn and Increate compRollIterator (Move to next index for random attack)
           playerTurn = true
+          compRollIterator++
           addLog(`Round ${turnCountTest}`, "turn");
         }
       } else {
