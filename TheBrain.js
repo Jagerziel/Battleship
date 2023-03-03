@@ -271,6 +271,21 @@ let compLastIndex; //Used for computer AI
 let endGame = false //Used to end Game
 let turnCountTest = 0 //Turn Count for Console Logs 
 
+function addLog (log) {
+  let tag = document.createElement("p");
+  let text = document.createTextNode(log);
+  tag.appendChild(text);
+  let element = document.querySelector(".BattleLogContainer2"); //CHECK AND CHANGE TO ID
+  element.appendChild(tag);
+}
+
+addLog("This is a test");
+addLog("This is another test");
+addLog("This is another test");
+addLog("This is another test");
+
+
+
 //Set Computer's Available Moves
 let compIndexArray = []
 for (let i = 0; i < 100; i++) {
