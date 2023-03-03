@@ -273,19 +273,24 @@ let turnCountTest = 0 //Turn Count for Console Logs
 
 //Function for Displaying Battle Log
 function addLog (log, setId = false) {
-  let tag = document.createElement("p");
-  tag.setAttribute("class", "log")
+  // Create Element
+  let paragraph = document.createElement("p");
+  // Create Class Attribute
+  paragraph.setAttribute("class", "log")
+  // Conditional ID Attribute
   if (setId === "firstLog") {
-    tag.setAttribute("id", "firstLog")
+    paragraph.setAttribute("id", "firstLog")
   } else if (setId === "computer") {
-    tag.setAttribute("id", "computer")
+    paragraph.setAttribute("id", "computer")
   } else if (setId === "player") {
-    tag.setAttribute("id", "player")
+    paragraph.setAttribute("id", "player")
   }
+  // Add and Append Text
   let text = document.createTextNode(log);
-  tag.appendChild(text);
-  let element = document.querySelector(".BattleLogContainer3"); //CHECK AND CHANGE TO ID
-  element.appendChild(tag);
+  paragraph.appendChild(text);
+  // Add and Append Element
+  let element = document.querySelector(".BattleLogContainer3");
+  element.appendChild(paragraph);
 }
 
 addLog("This is a test", "firstLog");
@@ -293,10 +298,10 @@ addLog("This is another test", "computer");
 addLog("This is another test", "player");
 addLog("This is another test");
 addLog("This is another test");
-// addLog("This is another test");
-// addLog("This is another test");
-// addLog("This is another test");
-// addLog("This is another test");
+addLog("This is another test");
+addLog("This is another test");
+addLog("This is another test");
+addLog("This is another test");
 
 
 

@@ -135,19 +135,19 @@ h1 {
 .BattleLogContainer2 {
   border: 3px solid black;
   flex-grow: 1;
+  flex-basis: 0;
   background-color: rgba(255, 255, 255, .65);
   border-radius: 15px;
   padding: 15px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .BattleLogContainer3 {
   border: 2px solid red;
-  height: 100%
 }
 
 .log {
-  color: green;
+  color: black;
   font-size: 1.2em;
   margin: 0;
   padding-top: 5px;
