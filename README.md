@@ -12,7 +12,7 @@ GitHub Pages Link: **[Battleship](https://jagerziel.github.io/Battleship/)**
 ## Screenshots (General Use)
 ![Battleship Homepage](./README%20Screenshots/Homepage_Screenshot_01.png "Battleship Home Page")
 ![Battle](./README%20Screenshots/Battle_Screenshot_02.png "Battle!")
-![Battle Summary](./README%20Screenshots/Battle_Summary_Screenshot_01.png "Battle Summary")
+![Battle Summary](./README%20Screenshots/Battle_Summary_Screenshot_02.png "Battle Summary")
 
 ## Screenshots (Developer Mode)
 ![Gameplay Screenshot DEV](./README%20Screenshots/Battle_Screenshot_DEV_03.png "Gameplay Screenshot (Developer)")
