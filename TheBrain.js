@@ -279,21 +279,21 @@ function addLog (log, setId = false) {
   paragraph.setAttribute("class", "log")
   // Conditional ID Attribute
   if (setId === "firstLog") {
-    paragraph.setAttribute("id", "firstLog")
+    paragraph.setAttribute("id", "firstLog") //First Log
   } else if (setId === "turn") {
-    paragraph.setAttribute("id", "turn")
+    paragraph.setAttribute("id", "turn") //Turn Header
   } else if (setId === "computer") {
-    paragraph.setAttribute("id", "computer")
+    paragraph.setAttribute("id", "computer") //Computer Miss
   } else if (setId === "player") {
-    paragraph.setAttribute("id", "player")
+    paragraph.setAttribute("id", "player") //Player Miss
   } else if (setId === "computerHit") {
-    paragraph.setAttribute("id", "computerHit")
+    paragraph.setAttribute("id", "computerHit") //Computer Hit
   } else if (setId === "playerHit") {
-    paragraph.setAttribute("id", "playerHit")
+    paragraph.setAttribute("id", "playerHit") //Player Hit
   } else if (setId === "computerSunk") {
-    paragraph.setAttribute("id", "computerSunk")
+    paragraph.setAttribute("id", "computerSunk") //Computer Sunk Ship
   } else if (setId === "playerSunk") {
-    paragraph.setAttribute("id", "playerSunk")
+    paragraph.setAttribute("id", "playerSunk") //Player Sunk Ship
   }
   // Add and Append Text
   let text = document.createTextNode(log);
@@ -327,8 +327,6 @@ if (Math.random() > 0.5) {
 }
 
 addLog("The enemy is approaching.  We must defend our fleet.  Attack!", "firstLog");
-// addLog("This is another test", "computer");
-// addLog("This is another test", "player");
 
 //Function for Player Turn
 const battleAttacks = (idx) => {
@@ -527,7 +525,6 @@ const battleAttacks = (idx) => {
               return true
             }
           }
-
           //End Turn and Increate compRollIterator (Move to next index for random attack)
           playerTurn = true
           compRollIterator++
@@ -587,7 +584,6 @@ const battleAttacks = (idx) => {
       }
   }
 }
-
 
 /*
 ***Ending the Game (Step 3) - To Battle!***
