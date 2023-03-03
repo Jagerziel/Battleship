@@ -341,12 +341,12 @@ const battleAttacks = (idx) => {
           compAttributes[idx].shipMiss = true
           compSquares[idx].style.background = 'RGB(0, 0, 0, 0)'
           playerShots++
-          addLog(`${turnCountTest}) Player attacks and misses the enemy ship.`, "player");
+          addLog(`Player attacks and misses the enemy ship.`, "player");
           console.log(`${turnCountTest}) Player Attacks Index ${idx} and misses!`)
         } else {
           //Log Attack, and Console Log
           compAttributes[idx].shipHit = true
-          addLog(`${turnCountTest}) Player attacks and hits the enemy ship!`, "playerHit");
+          addLog(`Player attacks and hits the enemy ship!`, "playerHit");
           console.log(`${turnCountTest}) Player Attacks Index ${idx} and hits!`)
           //Applies a hit count to all indexes of hit ship
           for (let i = 0; i < compAttributes[idx].shipLength; i++) {
@@ -422,7 +422,7 @@ const battleAttacks = (idx) => {
             playerAttributes[attackAgainIndex].shipMiss = true
             compShots++
             playerSquares[attackAgainIndex].style.background = 'RGB(0, 0, 0, 0)'
-            addLog(`${turnCountTest}) Computer attacks and misses.`, "computer");
+            addLog(`Computer attacks and misses.`, "computer");
             console.log(`${turnCountTest}) Computer attacks index ${attackAgainIndex} and misses shot`)
             if (newHitArray.length === 1) {
               //Log Attack, Update Attack Again Index, and Console Log
@@ -449,7 +449,7 @@ const battleAttacks = (idx) => {
               compLastIndex = attackAgainIndex
               console.log(`AI Deactivated - Out of Range!`)
             }
-            addLog(`${turnCountTest}) Computer attacks and hits the player's ${playerAttributes[attackAgainIndex].shipID}!`, "computerHit");
+            addLog(`Computer attacks and hits the player's ${playerAttributes[attackAgainIndex].shipID}!`, "computerHit");
             console.log(`${turnCountTest}) Computer hit index ${attackAgainIndex}, properties: ${playerAttributes[attackAgainIndex].shipID}`)
             //Applies a hit count to all indexes of hit ship
             for (let i = 0; i < playerAttributes[attackAgainIndex].shipLength; i++) {
@@ -492,13 +492,13 @@ const battleAttacks = (idx) => {
           compHit = false
           playerSquares[indexOfArray].style.background = 'RGB(0, 0, 0, 0)'
           compShots++
-          addLog(`${turnCountTest}) Computer attacks and misses.`, "computer");
+          addLog(`Computer attacks and misses.`, "computer");
           console.log(`${turnCountTest}) Computer attacks index ${indexOfArray} and misses shot`)
         } else {
           //Log Attack, and Console Log
           playerAttributes[indexOfArray].shipHit = true
           compHit = true
-          addLog(`${turnCountTest}) Computer attacks and hits the player's ${playerAttributes[indexOfArray].shipID}!`, "computerHit");
+          addLog(`Computer attacks and hits the player's ${playerAttributes[indexOfArray].shipID}!`, "computerHit");
           console.log(`${turnCountTest}) Computer hit index ${indexOfArray}, properties: ${playerAttributes[indexOfArray].shipID}`)
           //Applies a hit count to all indexes of hit ship
           for (let i = 0; i < playerAttributes[indexOfArray].shipLength; i++) {
