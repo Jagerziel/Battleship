@@ -391,7 +391,11 @@ const battleAttacks = (idx) => {
               if (compLastIndex % 10 + surroundingSquares[i] <= 9) { //not off board to the right
                 if (playerAttributes[compLastIndex + surroundingSquares[i]].shipHit === false && playerAttributes[compLastIndex + surroundingSquares[i]].shipMiss === false) {
                   //Push "next target" into newHitArray for Horizontal checks
-                  newHitArray.push(compLastIndex + surroundingSquares[i])
+                  if (compLastIndex % 10 === 0 && ((compLastIndex % 10) + surroundingSquares[i]) < 0) {
+                    //Skip push for left index (avoid adding newHitArray target off board to left)
+                  } else {
+                    newHitArray.push(compLastIndex + surroundingSquares[i])
+                  }
                 }
               }
             } else if (playerAttributes[compLastIndex + surroundingSquares[i]].shipHit === false && playerAttributes[compLastIndex + surroundingSquares[i]].shipMiss === false) {

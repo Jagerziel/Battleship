@@ -158,6 +158,8 @@ h1 {
 #firstLog {
   color: black;
   padding-bottom: 0px;
+  font-weight: 600;
+  font-size: 1em;
 }
 
 #turn {
